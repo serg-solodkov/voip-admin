@@ -1,0 +1,60 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="responsiblePerson">
+      <h2 data-cy="responsiblePersonDetailsHeading">
+        <span jhiTranslate="voipadminApp.responsiblePerson.detail.title">Responsible Person</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ responsiblePerson.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.responsiblePerson.code">Code</span></dt>
+        <dd>
+          <span>{{ responsiblePerson.code }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.responsiblePerson.firstName">First Name</span></dt>
+        <dd>
+          <span>{{ responsiblePerson.firstName }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.responsiblePerson.secondName">Second Name</span></dt>
+        <dd>
+          <span>{{ responsiblePerson.secondName }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.responsiblePerson.lastName">Last Name</span></dt>
+        <dd>
+          <span>{{ responsiblePerson.lastName }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.responsiblePerson.position">Position</span></dt>
+        <dd>
+          <span>{{ responsiblePerson.position }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.responsiblePerson.room">Room</span></dt>
+        <dd>
+          <span>{{ responsiblePerson.room }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.responsiblePerson.department">Department</span></dt>
+        <dd>
+          <div *ngIf="responsiblePerson.department">
+            <a [routerLink]="['/department', responsiblePerson.department?.id, 'view']">{{ responsiblePerson.department?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/responsible-person', responsiblePerson.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

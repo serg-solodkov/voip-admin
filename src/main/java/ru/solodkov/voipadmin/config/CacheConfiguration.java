@@ -48,6 +48,27 @@ public class CacheConfiguration {
             createCache(cm, ru.solodkov.voipadmin.domain.User.class.getName());
             createCache(cm, ru.solodkov.voipadmin.domain.Authority.class.getName());
             createCache(cm, ru.solodkov.voipadmin.domain.User.class.getName() + ".authorities");
+            createCache(cm, ru.solodkov.voipadmin.domain.Device.class.getName());
+            createCache(cm, ru.solodkov.voipadmin.domain.Device.class.getName() + ".settings");
+            createCache(cm, ru.solodkov.voipadmin.domain.Device.class.getName() + ".voipAccounts");
+            createCache(cm, ru.solodkov.voipadmin.domain.Device.class.getName() + ".children");
+            createCache(cm, ru.solodkov.voipadmin.domain.DeviceModel.class.getName());
+            createCache(cm, ru.solodkov.voipadmin.domain.DeviceModel.class.getName() + ".options");
+            createCache(cm, ru.solodkov.voipadmin.domain.OtherDeviceType.class.getName());
+            createCache(cm, ru.solodkov.voipadmin.domain.ResponsiblePerson.class.getName());
+            createCache(cm, ru.solodkov.voipadmin.domain.Department.class.getName());
+            createCache(cm, ru.solodkov.voipadmin.domain.VoipAccount.class.getName());
+            createCache(cm, ru.solodkov.voipadmin.domain.AsteriskAccount.class.getName());
+            createCache(cm, ru.solodkov.voipadmin.domain.Setting.class.getName());
+            createCache(cm, ru.solodkov.voipadmin.domain.Setting.class.getName() + ".selectedValues");
+            createCache(cm, ru.solodkov.voipadmin.domain.Option.class.getName());
+            createCache(cm, ru.solodkov.voipadmin.domain.Option.class.getName() + ".possibleValues");
+            createCache(cm, ru.solodkov.voipadmin.domain.Option.class.getName() + ".vendors");
+            createCache(cm, ru.solodkov.voipadmin.domain.Option.class.getName() + ".models");
+            createCache(cm, ru.solodkov.voipadmin.domain.OptionValue.class.getName());
+            createCache(cm, ru.solodkov.voipadmin.domain.OptionValue.class.getName() + ".settings");
+            createCache(cm, ru.solodkov.voipadmin.domain.Vendor.class.getName());
+            createCache(cm, ru.solodkov.voipadmin.domain.Vendor.class.getName() + ".options");
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -1,0 +1,9 @@
+{
+  "voipadminApp": {
+    "OptionValueType": {
+      "null": "",
+      "TEXT": "TEXT",
+      "SELECT": "SELECT"
+    }
+  }
+}

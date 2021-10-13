@@ -1,0 +1,60 @@
+{
+  "name": "VoipAccount",
+  "fields": [
+    {
+      "fieldName": "manuallyCreated",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "username",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "password",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "sipServer",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "sipPort",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lineEnable",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "lineNumber",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "asteriskAccount",
+      "otherEntityRelationshipName": "voipAccount",
+      "relationshipName": "asteriskAccount",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "device",
+      "otherEntityRelationshipName": "voipAccounts",
+      "relationshipName": "device",
+      "otherEntityField": "mac"
+    }
+  ],
+  "entityTableName": "voip_account",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211013021441"
+}

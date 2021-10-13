@@ -1,0 +1,25 @@
+{
+  "voipadminApp": {
+    "otherDeviceType": {
+      "home": {
+        "title": "Other Device Types",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Other Device Type",
+        "createOrEditLabel": "Create or edit a Other Device Type",
+        "notFound": "No Other Device Types found"
+      },
+      "created": "A new Other Device Type is created with identifier {{ param }}",
+      "updated": "A Other Device Type is updated with identifier {{ param }}",
+      "deleted": "A Other Device Type is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Other Device Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Other Device Type"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description"
+    }
+  }
+}

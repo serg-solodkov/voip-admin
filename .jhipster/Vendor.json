@@ -1,0 +1,29 @@
+{
+  "name": "Vendor",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "option",
+      "otherEntityRelationshipName": "vendors",
+      "relationshipName": "options",
+      "otherEntityField": "code",
+      "ownerSide": false
+    }
+  ],
+  "entityTableName": "vendor",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211013021446"
+}

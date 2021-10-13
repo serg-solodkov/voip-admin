@@ -1,0 +1,46 @@
+{
+  "voipadminApp": {
+    "device": {
+      "home": {
+        "title": "Devices",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Device",
+        "createOrEditLabel": "Create or edit a Device",
+        "notFound": "No Devices found"
+      },
+      "created": "A new Device is created with identifier {{ param }}",
+      "updated": "A Device is updated with identifier {{ param }}",
+      "deleted": "A Device is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Device {{ id }}?"
+      },
+      "detail": {
+        "title": "Device"
+      },
+      "id": "ID",
+      "mac": "Mac",
+      "inventoryNumber": "Inventory Number",
+      "location": "Location",
+      "hostname": "Hostname",
+      "webLogin": "Web Login",
+      "webPassword": "Web Password",
+      "dhcpEnabled": "Dhcp Enabled",
+      "ipAddress": "Ip Address",
+      "subnetMask": "Subnet Mask",
+      "defaultGw": "Default Gw",
+      "dns1": "Dns 1",
+      "dns2": "Dns 2",
+      "provisioningMode": "Provisioning Mode",
+      "provisioningUrl": "Provisioning Url",
+      "ntpServer": "Ntp Server",
+      "notes": "Notes",
+      "configuration": "Configuration",
+      "settings": "Settings",
+      "voipAccounts": "Voip Accounts",
+      "children": "Children",
+      "model": "Model",
+      "responsiblePerson": "Responsible Person",
+      "parent": "Parent"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "voipadminApp": {
+    "responsiblePerson": {
+      "home": {
+        "title": "Responsible People",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Responsible Person",
+        "createOrEditLabel": "Создать или отредактировать Responsible Person",
+        "notFound": "Responsible People не найдено"
+      },
+      "created": "Новый Responsible Person создан с идентификатором {{ param }}",
+      "updated": "Responsible Person обновлен с идентификатором {{ param }}",
+      "deleted": "Responsible Person удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Responsible Person {{ id }}?"
+      },
+      "detail": {
+        "title": "Responsible Person"
+      },
+      "id": "ID",
+      "code": "Code",
+      "firstName": "First Name",
+      "secondName": "Second Name",
+      "lastName": "Last Name",
+      "position": "Position",
+      "room": "Room",
+      "department": "Department"
+    }
+  }
+}

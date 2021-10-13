@@ -1,0 +1,138 @@
+<div>
+  <h2 id="page-heading" data-cy="VoipAccountHeading">
+    <span jhiTranslate="voipadminApp.voipAccount.home.title">Voip Accounts</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="voipadminApp.voipAccount.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-voip-account"
+        [routerLink]="['/voip-account/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="voipadminApp.voipAccount.home.createLabel"> Create a new Voip Account </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="voipAccounts?.length === 0">
+    <span jhiTranslate="voipadminApp.voipAccount.home.notFound">No voipAccounts found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="voipAccounts && voipAccounts.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="manuallyCreated">
+            <span jhiTranslate="voipadminApp.voipAccount.manuallyCreated">Manually Created</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="username">
+            <span jhiTranslate="voipadminApp.voipAccount.username">Username</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="password">
+            <span jhiTranslate="voipadminApp.voipAccount.password">Password</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="sipServer">
+            <span jhiTranslate="voipadminApp.voipAccount.sipServer">Sip Server</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="sipPort">
+            <span jhiTranslate="voipadminApp.voipAccount.sipPort">Sip Port</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="lineEnable">
+            <span jhiTranslate="voipadminApp.voipAccount.lineEnable">Line Enable</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="lineNumber">
+            <span jhiTranslate="voipadminApp.voipAccount.lineNumber">Line Number</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="asteriskAccount.id">
+            <span jhiTranslate="voipadminApp.voipAccount.asteriskAccount">Asterisk Account</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="device.mac">
+            <span jhiTranslate="voipadminApp.voipAccount.device">Device</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let voipAccount of voipAccounts; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/voip-account', voipAccount.id, 'view']">{{ voipAccount.id }}</a>
+          </td>
+          <td>{{ voipAccount.manuallyCreated }}</td>
+          <td>{{ voipAccount.username }}</td>
+          <td>{{ voipAccount.password }}</td>
+          <td>{{ voipAccount.sipServer }}</td>
+          <td>{{ voipAccount.sipPort }}</td>
+          <td>{{ voipAccount.lineEnable }}</td>
+          <td>{{ voipAccount.lineNumber }}</td>
+          <td>
+            <div *ngIf="voipAccount.asteriskAccount">
+              <a [routerLink]="['/asterisk-account', voipAccount.asteriskAccount?.id, 'view']">{{ voipAccount.asteriskAccount?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="voipAccount.device">
+              <a [routerLink]="['/device', voipAccount.device?.id, 'view']">{{ voipAccount.device?.mac }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/voip-account', voipAccount.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/voip-account', voipAccount.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(voipAccount)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="voipAccounts && voipAccounts.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

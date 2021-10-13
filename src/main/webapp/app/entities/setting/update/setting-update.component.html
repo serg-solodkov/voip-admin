@@ -1,0 +1,84 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-setting-heading" data-cy="SettingCreateUpdateHeading" jhiTranslate="voipadminApp.setting.home.createOrEditLabel">
+        Create or edit a Setting
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="voipadminApp.setting.textValue" for="field_textValue">Text Value</label>
+          <input type="text" class="form-control" name="textValue" id="field_textValue" data-cy="textValue" formControlName="textValue" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="voipadminApp.setting.option" for="field_option">Option</label>
+          <select class="form-control" id="field_option" data-cy="option" name="option" formControlName="option">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="optionOption.id === editForm.get('option')!.value?.id ? editForm.get('option')!.value : optionOption"
+              *ngFor="let optionOption of optionsSharedCollection; trackBy: trackOptionById"
+            >
+              {{ optionOption.code }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label jhiTranslate="voipadminApp.setting.selectedValues" for="field_selectedValues">Selected Values</label>
+          <select
+            class="form-control"
+            id="field_selectedValues"
+            data-cy="selectedValues"
+            multiple
+            name="selectedValues"
+            formControlName="selectedValues"
+          >
+            <option
+              [ngValue]="getSelectedOptionValue(optionValueOption, editForm.get('selectedValues')!.value)"
+              *ngFor="let optionValueOption of optionValuesSharedCollection; trackBy: trackOptionValueById"
+            >
+              {{ optionValueOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="voipadminApp.setting.device" for="field_device">Device</label>
+          <select class="form-control" id="field_device" data-cy="device" name="device" formControlName="device">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="deviceOption.id === editForm.get('device')!.value?.id ? editForm.get('device')!.value : deviceOption"
+              *ngFor="let deviceOption of devicesSharedCollection; trackBy: trackDeviceById"
+            >
+              {{ deviceOption.mac }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

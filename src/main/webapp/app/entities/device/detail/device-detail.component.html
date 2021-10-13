@@ -1,0 +1,117 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="device">
+      <h2 data-cy="deviceDetailsHeading"><span jhiTranslate="voipadminApp.device.detail.title">Device</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ device.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.device.mac">Mac</span></dt>
+        <dd>
+          <span>{{ device.mac }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.device.inventoryNumber">Inventory Number</span></dt>
+        <dd>
+          <span>{{ device.inventoryNumber }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.device.location">Location</span></dt>
+        <dd>
+          <span>{{ device.location }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.device.hostname">Hostname</span></dt>
+        <dd>
+          <span>{{ device.hostname }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.device.webLogin">Web Login</span></dt>
+        <dd>
+          <span>{{ device.webLogin }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.device.webPassword">Web Password</span></dt>
+        <dd>
+          <span>{{ device.webPassword }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.device.dhcpEnabled">Dhcp Enabled</span></dt>
+        <dd>
+          <span>{{ device.dhcpEnabled }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.device.ipAddress">Ip Address</span></dt>
+        <dd>
+          <span>{{ device.ipAddress }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.device.subnetMask">Subnet Mask</span></dt>
+        <dd>
+          <span>{{ device.subnetMask }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.device.defaultGw">Default Gw</span></dt>
+        <dd>
+          <span>{{ device.defaultGw }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.device.dns1">Dns 1</span></dt>
+        <dd>
+          <span>{{ device.dns1 }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.device.dns2">Dns 2</span></dt>
+        <dd>
+          <span>{{ device.dns2 }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.device.provisioningMode">Provisioning Mode</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'voipadminApp.ProvisioningMode.' + device.provisioningMode }}">{{ device.provisioningMode }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.device.provisioningUrl">Provisioning Url</span></dt>
+        <dd>
+          <span>{{ device.provisioningUrl }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.device.ntpServer">Ntp Server</span></dt>
+        <dd>
+          <span>{{ device.ntpServer }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.device.notes">Notes</span></dt>
+        <dd>
+          <span>{{ device.notes }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.device.configuration">Configuration</span></dt>
+        <dd>
+          <div *ngIf="device.configuration">
+            <a (click)="openFile(device.configuration, device.configurationContentType)" jhiTranslate="entity.action.open">open</a>
+            {{ device.configurationContentType }}, {{ byteSize(device.configuration) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.device.model">Model</span></dt>
+        <dd>
+          <div *ngIf="device.model">
+            <a [routerLink]="['/device-model', device.model?.id, 'view']">{{ device.model?.name }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.device.responsiblePerson">Responsible Person</span></dt>
+        <dd>
+          <div *ngIf="device.responsiblePerson">
+            <a [routerLink]="['/responsible-person', device.responsiblePerson?.id, 'view']">{{ device.responsiblePerson?.lastName }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.device.parent">Parent</span></dt>
+        <dd>
+          <div *ngIf="device.parent">
+            <a [routerLink]="['/device', device.parent?.id, 'view']">{{ device.parent?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/device', device.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

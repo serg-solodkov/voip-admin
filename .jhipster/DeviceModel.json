@@ -1,0 +1,67 @@
+{
+  "name": "DeviceModel",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "isConfigurable",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "linesCount",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "configTemplate",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "firmwareFile",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "deviceType",
+      "fieldType": "DeviceType",
+      "fieldValues": "IPPHONE,IPGATEWAY,HANDSET,HEADSET,OTHER"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "otherDeviceType",
+      "otherEntityRelationshipName": "deviceModel",
+      "relationshipName": "otherDeviceType"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "vendor",
+      "otherEntityRelationshipName": "deviceModel",
+      "relationshipName": "vendor",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "option",
+      "otherEntityRelationshipName": "models",
+      "relationshipName": "options",
+      "otherEntityField": "code",
+      "ownerSide": true
+    }
+  ],
+  "entityTableName": "device_model",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211013021437"
+}

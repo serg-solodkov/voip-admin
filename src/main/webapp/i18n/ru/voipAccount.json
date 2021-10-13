@@ -1,0 +1,32 @@
+{
+  "voipadminApp": {
+    "voipAccount": {
+      "home": {
+        "title": "Voip Accounts",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Voip Account",
+        "createOrEditLabel": "Создать или отредактировать Voip Account",
+        "notFound": "Voip Accounts не найдено"
+      },
+      "created": "Новый Voip Account создан с идентификатором {{ param }}",
+      "updated": "Voip Account обновлен с идентификатором {{ param }}",
+      "deleted": "Voip Account удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Voip Account {{ id }}?"
+      },
+      "detail": {
+        "title": "Voip Account"
+      },
+      "id": "ID",
+      "manuallyCreated": "Manually Created",
+      "username": "Username",
+      "password": "Password",
+      "sipServer": "Sip Server",
+      "sipPort": "Sip Port",
+      "lineEnable": "Line Enable",
+      "lineNumber": "Line Number",
+      "asteriskAccount": "Asterisk Account",
+      "device": "Device"
+    }
+  }
+}

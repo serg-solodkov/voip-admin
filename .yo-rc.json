@@ -42,6 +42,20 @@
     "jwtSecretKey": "NjhiNjNhZDM4MmJmMmZhMjQyNjI4Njk2ZGI1NzJmZDg4NWM3NzhkYWEyMDJkMTEyNDhlNDZiNGQzYThjZTY0ZjFiMTJiOWMzMzIzY2E2MzUwYjA5ZGYyZWIzZWYyMDY1MWQyMWVlMWVjN2EwNWJhY2IzZWE3MDAxYzhhZTM1OWM=",
     "devServerPort": 4200,
     "clientPackageManager": "npm",
-    "languages": ["en", "ru"]
+    "languages": ["en", "ru"],
+    "entities": [
+      "Device",
+      "DeviceModel",
+      "OtherDeviceType",
+      "ResponsiblePerson",
+      "Department",
+      "VoipAccount",
+      "AsteriskAccount",
+      "Setting",
+      "Option",
+      "OptionValue",
+      "Vendor"
+    ],
+    "lastLiquibaseTimestamp": 1634091286000
   }
 }

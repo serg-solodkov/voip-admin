@@ -1,0 +1,132 @@
+enum ProvisioningMode {
+	FTP,
+    TFTP,
+    HTTP
+}
+
+enum DeviceType {
+	IPPHONE,
+    IPGATEWAY,
+    HANDSET,
+    HEADSET,
+    OTHER
+}
+
+entity Device {
+	mac String required,
+    inventoryNumber String,
+    location String,
+    hostname String,
+    webLogin String,
+    webPassword String,
+    dhcpEnabled Boolean,
+    ipAddress String,
+    subnetMask String,
+    defaultGw String,
+    dns1 String,
+    dns2 String,
+    provisioningMode ProvisioningMode,
+    provisioningUrl String,
+    ntpServer String,
+    notes String,
+    configuration Blob
+}
+
+entity DeviceModel {
+	name String required,
+    isConfigurable Boolean required,
+    linesCount Integer,
+    configTemplate Blob,
+    firmwareFile Blob,
+    deviceType DeviceType
+}
+
+entity OtherDeviceType {
+	name String,
+  	description String
+}
+
+entity ResponsiblePerson {
+	code String required,
+	firstName String required,
+    secondName String,
+    lastName String required,
+    position String,
+    room String
+}
+
+entity Department {
+	name String required
+}
+
+entity VoipAccount {
+	manuallyCreated Boolean,
+    username String required,
+    password String,
+    sipServer String,
+    sipPort String,
+    lineEnable Boolean,
+    lineNumber String
+}
+
+entity AsteriskAccount {
+	username String,
+    asteriskId String
+}
+
+entity Setting {
+	textValue String
+}
+
+enum OptionValueType {
+	TEXT,
+    SELECT
+}
+
+entity Option {
+	code String,
+    descr String,
+    valueType OptionValueType,
+    multiple Boolean
+}
+
+entity OptionValue {
+	value String
+}
+
+entity Vendor {
+	name String
+}
+
+relationship OneToOne {
+	VoipAccount{asteriskAccount} to AsteriskAccount{voipAccount}
+}
+
+relationship OneToMany {
+	Device{settings} to Setting{device(mac)},
+    Device{voipAccounts(username)} to VoipAccount{device(mac)},
+    Device{children} to Device{parent},
+    Option{possibleValues} to OptionValue{option}
+}
+
+relationship ManyToOne {
+	Device{model(name)} to DeviceModel,
+    Device{responsiblePerson(lastName)} to ResponsiblePerson,
+    Setting{option(code)} to Option,
+    ResponsiblePerson{department(name)} to Department,
+    DeviceModel{otherDeviceType} to OtherDeviceType,
+    DeviceModel{vendor(name)} to Vendor
+}
+
+relationship ManyToMany {
+	DeviceModel{options(code)} to Option{models(name)},
+    Setting{selectedValues} to OptionValue{settings},
+    Option{vendors(name)} to Vendor{options(code)}
+}
+
+
+paginate all with pagination
+
+dto all with mapstruct
+
+service all with serviceClass

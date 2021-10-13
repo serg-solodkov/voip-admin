@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="option">
+      <h2 data-cy="optionDetailsHeading"><span jhiTranslate="voipadminApp.option.detail.title">Option</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ option.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.option.code">Code</span></dt>
+        <dd>
+          <span>{{ option.code }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.option.descr">Descr</span></dt>
+        <dd>
+          <span>{{ option.descr }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.option.valueType">Value Type</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'voipadminApp.OptionValueType.' + option.valueType }}">{{ option.valueType }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.option.multiple">Multiple</span></dt>
+        <dd>
+          <span>{{ option.multiple }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.option.vendors">Vendors</span></dt>
+        <dd>
+          <span *ngFor="let vendors of option.vendors; let last = last">
+            <a [routerLink]="['/vendor', vendors?.id, 'view']">{{ vendors.name }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/option', option.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

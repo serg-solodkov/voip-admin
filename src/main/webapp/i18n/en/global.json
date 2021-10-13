@@ -7,6 +7,17 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entities",
+        "device": "Device",
+        "deviceModel": "Device Model",
+        "otherDeviceType": "Other Device Type",
+        "responsiblePerson": "Responsible Person",
+        "department": "Department",
+        "voipAccount": "Voip Account",
+        "asteriskAccount": "Asterisk Account",
+        "setting": "Setting",
+        "option": "Option",
+        "optionValue": "Option Value",
+        "vendor": "Vendor",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

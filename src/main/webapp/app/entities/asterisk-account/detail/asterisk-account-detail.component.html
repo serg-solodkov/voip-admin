@@ -1,0 +1,38 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="asteriskAccount">
+      <h2 data-cy="asteriskAccountDetailsHeading">
+        <span jhiTranslate="voipadminApp.asteriskAccount.detail.title">Asterisk Account</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ asteriskAccount.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.asteriskAccount.username">Username</span></dt>
+        <dd>
+          <span>{{ asteriskAccount.username }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.asteriskAccount.asteriskId">Asterisk Id</span></dt>
+        <dd>
+          <span>{{ asteriskAccount.asteriskId }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/asterisk-account', asteriskAccount.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

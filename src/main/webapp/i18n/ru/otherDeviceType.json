@@ -1,0 +1,25 @@
+{
+  "voipadminApp": {
+    "otherDeviceType": {
+      "home": {
+        "title": "Other Device Types",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Other Device Type",
+        "createOrEditLabel": "Создать или отредактировать Other Device Type",
+        "notFound": "Other Device Types не найдено"
+      },
+      "created": "Новый Other Device Type создан с идентификатором {{ param }}",
+      "updated": "Other Device Type обновлен с идентификатором {{ param }}",
+      "deleted": "Other Device Type удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Other Device Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Other Device Type"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description"
+    }
+  }
+}

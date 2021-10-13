@@ -1,0 +1,154 @@
+<div>
+  <h2 id="page-heading" data-cy="DeviceModelHeading">
+    <span jhiTranslate="voipadminApp.deviceModel.home.title">Device Models</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="voipadminApp.deviceModel.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-device-model"
+        [routerLink]="['/device-model/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="voipadminApp.deviceModel.home.createLabel"> Create a new Device Model </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="deviceModels?.length === 0">
+    <span jhiTranslate="voipadminApp.deviceModel.home.notFound">No deviceModels found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="deviceModels && deviceModels.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="name">
+            <span jhiTranslate="voipadminApp.deviceModel.name">Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="isConfigurable">
+            <span jhiTranslate="voipadminApp.deviceModel.isConfigurable">Is Configurable</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="linesCount">
+            <span jhiTranslate="voipadminApp.deviceModel.linesCount">Lines Count</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="configTemplate">
+            <span jhiTranslate="voipadminApp.deviceModel.configTemplate">Config Template</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="firmwareFile">
+            <span jhiTranslate="voipadminApp.deviceModel.firmwareFile">Firmware File</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="deviceType">
+            <span jhiTranslate="voipadminApp.deviceModel.deviceType">Device Type</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="otherDeviceType.id">
+            <span jhiTranslate="voipadminApp.deviceModel.otherDeviceType">Other Device Type</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="vendor.name">
+            <span jhiTranslate="voipadminApp.deviceModel.vendor">Vendor</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let deviceModel of deviceModels; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/device-model', deviceModel.id, 'view']">{{ deviceModel.id }}</a>
+          </td>
+          <td>{{ deviceModel.name }}</td>
+          <td>{{ deviceModel.isConfigurable }}</td>
+          <td>{{ deviceModel.linesCount }}</td>
+          <td>
+            <a
+              *ngIf="deviceModel.configTemplate"
+              (click)="openFile(deviceModel.configTemplate, deviceModel.configTemplateContentType)"
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="deviceModel.configTemplate"
+              >{{ deviceModel.configTemplateContentType }}, {{ byteSize(deviceModel.configTemplate) }}</span
+            >
+          </td>
+          <td>
+            <a
+              *ngIf="deviceModel.firmwareFile"
+              (click)="openFile(deviceModel.firmwareFile, deviceModel.firmwareFileContentType)"
+              jhiTranslate="entity.action.open"
+              >open</a
+            >
+            <span *ngIf="deviceModel.firmwareFile"
+              >{{ deviceModel.firmwareFileContentType }}, {{ byteSize(deviceModel.firmwareFile) }}</span
+            >
+          </td>
+          <td jhiTranslate="{{ 'voipadminApp.DeviceType.' + deviceModel.deviceType }}">{{ deviceModel.deviceType }}</td>
+          <td>
+            <div *ngIf="deviceModel.otherDeviceType">
+              <a [routerLink]="['/other-device-type', deviceModel.otherDeviceType?.id, 'view']">{{ deviceModel.otherDeviceType?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="deviceModel.vendor">
+              <a [routerLink]="['/vendor', deviceModel.vendor?.id, 'view']">{{ deviceModel.vendor?.name }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/device-model', deviceModel.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/device-model', deviceModel.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(deviceModel)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="deviceModels && deviceModels.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

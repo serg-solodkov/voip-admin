@@ -1,0 +1,32 @@
+{
+  "voipadminApp": {
+    "deviceModel": {
+      "home": {
+        "title": "Device Models",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Device Model",
+        "createOrEditLabel": "Создать или отредактировать Device Model",
+        "notFound": "Device Models не найдено"
+      },
+      "created": "Новый Device Model создан с идентификатором {{ param }}",
+      "updated": "Device Model обновлен с идентификатором {{ param }}",
+      "deleted": "Device Model удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Device Model {{ id }}?"
+      },
+      "detail": {
+        "title": "Device Model"
+      },
+      "id": "ID",
+      "name": "Name",
+      "isConfigurable": "Is Configurable",
+      "linesCount": "Lines Count",
+      "configTemplate": "Config Template",
+      "firmwareFile": "Firmware File",
+      "deviceType": "Device Type",
+      "otherDeviceType": "Other Device Type",
+      "vendor": "Vendor",
+      "options": "Options"
+    }
+  }
+}

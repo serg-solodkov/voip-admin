@@ -1,0 +1,68 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="voipAccount">
+      <h2 data-cy="voipAccountDetailsHeading"><span jhiTranslate="voipadminApp.voipAccount.detail.title">Voip Account</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ voipAccount.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.voipAccount.manuallyCreated">Manually Created</span></dt>
+        <dd>
+          <span>{{ voipAccount.manuallyCreated }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.voipAccount.username">Username</span></dt>
+        <dd>
+          <span>{{ voipAccount.username }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.voipAccount.password">Password</span></dt>
+        <dd>
+          <span>{{ voipAccount.password }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.voipAccount.sipServer">Sip Server</span></dt>
+        <dd>
+          <span>{{ voipAccount.sipServer }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.voipAccount.sipPort">Sip Port</span></dt>
+        <dd>
+          <span>{{ voipAccount.sipPort }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.voipAccount.lineEnable">Line Enable</span></dt>
+        <dd>
+          <span>{{ voipAccount.lineEnable }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.voipAccount.lineNumber">Line Number</span></dt>
+        <dd>
+          <span>{{ voipAccount.lineNumber }}</span>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.voipAccount.asteriskAccount">Asterisk Account</span></dt>
+        <dd>
+          <div *ngIf="voipAccount.asteriskAccount">
+            <a [routerLink]="['/asterisk-account', voipAccount.asteriskAccount?.id, 'view']">{{ voipAccount.asteriskAccount?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="voipadminApp.voipAccount.device">Device</span></dt>
+        <dd>
+          <div *ngIf="voipAccount.device">
+            <a [routerLink]="['/device', voipAccount.device?.id, 'view']">{{ voipAccount.device?.mac }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/voip-account', voipAccount.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

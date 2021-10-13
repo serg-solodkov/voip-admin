@@ -1,0 +1,126 @@
+<div>
+  <h2 id="page-heading" data-cy="ResponsiblePersonHeading">
+    <span jhiTranslate="voipadminApp.responsiblePerson.home.title">Responsible People</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="voipadminApp.responsiblePerson.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-responsible-person"
+        [routerLink]="['/responsible-person/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="voipadminApp.responsiblePerson.home.createLabel"> Create a new Responsible Person </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="responsiblePeople?.length === 0">
+    <span jhiTranslate="voipadminApp.responsiblePerson.home.notFound">No responsiblePeople found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="responsiblePeople && responsiblePeople.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="code">
+            <span jhiTranslate="voipadminApp.responsiblePerson.code">Code</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="firstName">
+            <span jhiTranslate="voipadminApp.responsiblePerson.firstName">First Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="secondName">
+            <span jhiTranslate="voipadminApp.responsiblePerson.secondName">Second Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="lastName">
+            <span jhiTranslate="voipadminApp.responsiblePerson.lastName">Last Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="position">
+            <span jhiTranslate="voipadminApp.responsiblePerson.position">Position</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="room">
+            <span jhiTranslate="voipadminApp.responsiblePerson.room">Room</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="department.name">
+            <span jhiTranslate="voipadminApp.responsiblePerson.department">Department</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let responsiblePerson of responsiblePeople; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/responsible-person', responsiblePerson.id, 'view']">{{ responsiblePerson.id }}</a>
+          </td>
+          <td>{{ responsiblePerson.code }}</td>
+          <td>{{ responsiblePerson.firstName }}</td>
+          <td>{{ responsiblePerson.secondName }}</td>
+          <td>{{ responsiblePerson.lastName }}</td>
+          <td>{{ responsiblePerson.position }}</td>
+          <td>{{ responsiblePerson.room }}</td>
+          <td>
+            <div *ngIf="responsiblePerson.department">
+              <a [routerLink]="['/department', responsiblePerson.department?.id, 'view']">{{ responsiblePerson.department?.name }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/responsible-person', responsiblePerson.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/responsible-person', responsiblePerson.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(responsiblePerson)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="responsiblePeople && responsiblePeople.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+{
+  "voipadminApp": {
+    "option": {
+      "home": {
+        "title": "Options",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Option",
+        "createOrEditLabel": "Создать или отредактировать Option",
+        "notFound": "Options не найдено"
+      },
+      "created": "Новый Option создан с идентификатором {{ param }}",
+      "updated": "Option обновлен с идентификатором {{ param }}",
+      "deleted": "Option удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Option {{ id }}?"
+      },
+      "detail": {
+        "title": "Option"
+      },
+      "id": "ID",
+      "code": "Code",
+      "descr": "Descr",
+      "valueType": "Value Type",
+      "multiple": "Multiple",
+      "possibleValues": "Possible Values",
+      "vendors": "Vendors",
+      "models": "Models"
+    }
+  }
+}

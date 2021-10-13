@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <!--
+        Added the constraints for entity DeviceModel.
+    -->
+    <changeSet id="20211013021437-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="other_device_type_id"
+                                 baseTableName="device_model"
+                                 constraintName="fk_device_model__other_device_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="other_device_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="vendor_id"
+                                 baseTableName="device_model"
+                                 constraintName="fk_device_model__vendor_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="vendor"/>
+
+        <addForeignKeyConstraint baseColumnNames="device_model_id"
+                                 baseTableName="rel_device_model__options"
+                                 constraintName="fk_rel_device_model__options__device_model_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="device_model"/>
+
+        <addForeignKeyConstraint baseColumnNames="options_id"
+                                 baseTableName="rel_device_model__options"
+                                 constraintName="fk_rel_device_model__options__options_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="option"/>
+    </changeSet>
+</databaseChangeLog>

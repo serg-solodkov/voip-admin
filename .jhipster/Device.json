@@ -1,0 +1,127 @@
+{
+  "name": "Device",
+  "fields": [
+    {
+      "fieldName": "mac",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "inventoryNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "location",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "hostname",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "webLogin",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "webPassword",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dhcpEnabled",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "ipAddress",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subnetMask",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "defaultGw",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dns1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dns2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "provisioningMode",
+      "fieldType": "ProvisioningMode",
+      "fieldValues": "FTP,TFTP,HTTP"
+    },
+    {
+      "fieldName": "provisioningUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ntpServer",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "notes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "configuration",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "setting",
+      "otherEntityRelationshipName": "device",
+      "relationshipName": "settings"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "voipAccount",
+      "otherEntityRelationshipName": "device",
+      "relationshipName": "voipAccounts",
+      "otherEntityField": "username"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "device",
+      "otherEntityRelationshipName": "parent",
+      "relationshipName": "children"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "deviceModel",
+      "otherEntityRelationshipName": "device",
+      "relationshipName": "model",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "responsiblePerson",
+      "otherEntityRelationshipName": "device",
+      "relationshipName": "responsiblePerson",
+      "otherEntityField": "lastName"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "device",
+      "otherEntityRelationshipName": "children",
+      "relationshipName": "parent"
+    }
+  ],
+  "entityTableName": "device",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211013021436"
+}

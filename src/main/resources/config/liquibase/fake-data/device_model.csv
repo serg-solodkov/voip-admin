@@ -1,0 +1,11 @@
+id;name;is_configurable;lines_count;config_template;config_template_content_type;firmware_file;firmware_file_content_type;device_type
+1;Pants;true;56841;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;HEADSET
+2;Security;false;79098;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;HANDSET
+3;indigo reboot;true;5513;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;HEADSET
+4;Generic Wyoming;true;49276;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;OTHER
+5;lavender metrics Assistant;false;27746;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;OTHER
+6;maroon;false;59496;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;IPPHONE
+7;Strategist interfaces;false;41653;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;OTHER
+8;Loan;false;26248;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;IPPHONE
+9;Avon Berkshire fuchsia;true;35393;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;HEADSET
+10;Designer capacitor;false;70011;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.png;image/png;OTHER

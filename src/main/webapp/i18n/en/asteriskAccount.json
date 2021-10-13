@@ -1,0 +1,26 @@
+{
+  "voipadminApp": {
+    "asteriskAccount": {
+      "home": {
+        "title": "Asterisk Accounts",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Asterisk Account",
+        "createOrEditLabel": "Create or edit a Asterisk Account",
+        "notFound": "No Asterisk Accounts found"
+      },
+      "created": "A new Asterisk Account is created with identifier {{ param }}",
+      "updated": "A Asterisk Account is updated with identifier {{ param }}",
+      "deleted": "A Asterisk Account is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Asterisk Account {{ id }}?"
+      },
+      "detail": {
+        "title": "Asterisk Account"
+      },
+      "id": "ID",
+      "username": "Username",
+      "asteriskId": "Asterisk Id",
+      "voipAccount": "Voip Account"
+    }
+  }
+}
