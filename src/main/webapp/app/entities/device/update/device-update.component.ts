@@ -14,9 +14,11 @@ import { IDeviceModel } from 'app/entities/device-model/device-model.model';
 import { DeviceModelService } from 'app/entities/device-model/service/device-model.service';
 import { IResponsiblePerson } from 'app/entities/responsible-person/responsible-person.model';
 import { ResponsiblePersonService } from 'app/entities/responsible-person/service/responsible-person.service';
+import { ValidationService } from "../../../shared/service/validation.service";
 
 @Component({
   selector: 'jhi-device-update',
+  styleUrls: ['./device-update.component.scss'],
   templateUrl: './device-update.component.html',
 })
 export class DeviceUpdateComponent implements OnInit {
@@ -28,18 +30,25 @@ export class DeviceUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    mac: [null, [Validators.required]],
+    mac: [null, [Validators.required, Validators.pattern('^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$')]],
     inventoryNumber: [],
     location: [],
     hostname: [],
     webLogin: [],
     webPassword: [],
     dhcpEnabled: [],
-    ipAddress: [],
-    subnetMask: [],
-    defaultGw: [],
-    dns1: [],
-    dns2: [],
+    ipAddress: [null, [Validators.pattern('^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$')]],
+    subnetMask: [
+      null,
+      [
+        Validators.pattern(
+          '^(((255\\.){3}(255|254|252|248|240|224|192|128|0+))|((255\\.){2}(255|254|252|248|240|224|192|128|0+)\\.0)|((255\\.)(255|254|252|248|240|224|192|128|0+)(\\.0+){2})|((255|254|252|248|240|224|192|128|0+)(\\.0+){3}))$'
+        ),
+      ],
+    ],
+    defaultGw: [null, this.validationService.ipAddressOrDomainNamePattern],
+    dns1: [null, this.validationService.ipAddressOrDomainNamePattern],
+    dns2: [null, this.validationService.ipAddressOrDomainNamePattern],
     provisioningMode: [],
     provisioningUrl: [],
     ntpServer: [],
@@ -58,7 +67,8 @@ export class DeviceUpdateComponent implements OnInit {
     protected deviceModelService: DeviceModelService,
     protected responsiblePersonService: ResponsiblePersonService,
     protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
+    protected fb: FormBuilder,
+    protected validationService: ValidationService
   ) {}
 
   ngOnInit(): void {
@@ -91,7 +101,7 @@ export class DeviceUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const device = this.createFromForm();
-    if (device.id !== undefined) {
+    if (device.id) {
       this.subscribeToSaveResponse(this.deviceService.update(device));
     } else {
       this.subscribeToSaveResponse(this.deviceService.create(device));

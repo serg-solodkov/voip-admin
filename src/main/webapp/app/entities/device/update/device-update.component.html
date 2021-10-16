@@ -12,17 +12,16 @@
             <div class="tab-content">
               <jhi-alert-error></jhi-alert-error>
 
-              <div class="form-group" [hidden]="editForm.get('id')!.value == null">
-                <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-                <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-              </div>
-
               <div class="form-group">
                 <label class="form-control-label" jhiTranslate="voipadminApp.device.mac" for="field_mac">Mac</label>
                 <input type="text" class="form-control" name="mac" id="field_mac" data-cy="mac" formControlName="mac" />
                 <div *ngIf="editForm.get('mac')!.invalid && (editForm.get('mac')!.dirty || editForm.get('mac')!.touched)">
                   <small class="form-text text-danger" *ngIf="editForm.get('mac')?.errors?.required" jhiTranslate="entity.validation.required">
                     This field is required.
+                  </small>
+                  <small class="form-text text-danger"
+                         *ngIf="editForm.get('mac')?.errors?.pattern" jhiTranslate="voipadminApp.device.validation.macPattern">
+                    Wrong MAC-address format
                   </small>
                 </div>
               </div>
@@ -80,36 +79,80 @@
                 />
               </div>
 
-              <div class="form-group">
-                <label class="form-control-label" jhiTranslate="voipadminApp.device.ipAddress" for="field_ipAddress">Ip Address</label>
-                <input type="text" class="form-control" name="ipAddress" id="field_ipAddress" data-cy="ipAddress" formControlName="ipAddress" />
-              </div>
+              <div *ngIf="!editForm.get('dhcpEnabled')?.value">
+                <div class="form-group">
+                  <label class="form-control-label" jhiTranslate="voipadminApp.device.ipAddress" for="field_ipAddress">Ip Address</label>
+                  <input type="text" class="form-control" name="ipAddress" id="field_ipAddress" data-cy="ipAddress" formControlName="ipAddress" />
+                  <div *ngIf="editForm.get('ipAddress')!.invalid && (editForm.get('ipAddress')!.dirty || editForm.get('ipAddress')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('ipAddress')?.errors?.pattern" jhiTranslate="voipadminApp.device.validation.ipAddressPattern">
+                      You provided wrong IP-address.
+                    </small>
+                  </div>
+                </div>
 
-              <div class="form-group">
-                <label class="form-control-label" jhiTranslate="voipadminApp.device.subnetMask" for="field_subnetMask">Subnet Mask</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="subnetMask"
-                  id="field_subnetMask"
-                  data-cy="subnetMask"
-                  formControlName="subnetMask"
-                />
-              </div>
+                <div class="form-group">
+                  <label class="form-control-label" jhiTranslate="voipadminApp.device.subnetMask" for="field_subnetMask">Subnet Mask</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="subnetMask"
+                    id="field_subnetMask"
+                    data-cy="subnetMask"
+                    formControlName="subnetMask"
+                  />
+                  <div *ngIf="editForm.get('subnetMask')!.invalid && (editForm.get('subnetMask')!.dirty || editForm.get('subnetMask')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('subnetMask')?.errors?.pattern" jhiTranslate="voipadminApp.device.validation.subnetMaskPattern">
+                      You provided wrong subnet mask.
+                    </small>
+                  </div>
+                </div>
 
-              <div class="form-group">
-                <label class="form-control-label" jhiTranslate="voipadminApp.device.defaultGw" for="field_defaultGw">Default Gw</label>
-                <input type="text" class="form-control" name="defaultGw" id="field_defaultGw" data-cy="defaultGw" formControlName="defaultGw" />
-              </div>
+                <div class="form-group">
+                  <label class="form-control-label" jhiTranslate="voipadminApp.device.defaultGw" for="field_defaultGw">Default Gw</label>
+                  <input type="text" class="form-control" name="defaultGw" id="field_defaultGw" data-cy="defaultGw" formControlName="defaultGw" />
+                  <div *ngIf="editForm.get('defaultGw')!.invalid && (editForm.get('defaultGw')!.dirty || editForm.get('defaultGw')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('defaultGw')?.errors?.wrongIpAddress" jhiTranslate="voipadminApp.device.validation.ipAddressPattern">
+                      You provided wrong IP-address.
+                    </small>
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('defaultGw')?.errors?.wrongDomainName" jhiTranslate="voipadminApp.device.validation.domainNamePattern">
+                      You provided wrong domain name.
+                    </small>
+                  </div>
+                </div>
 
-              <div class="form-group">
-                <label class="form-control-label" jhiTranslate="voipadminApp.device.dns1" for="field_dns1">Dns 1</label>
-                <input type="text" class="form-control" name="dns1" id="field_dns1" data-cy="dns1" formControlName="dns1" />
-              </div>
+                <div class="form-group">
+                  <label class="form-control-label" jhiTranslate="voipadminApp.device.dns1" for="field_dns1">Dns 1</label>
+                  <input type="text" class="form-control" name="dns1" id="field_dns1" data-cy="dns1" formControlName="dns1" />
+                  <div *ngIf="editForm.get('dns2')!.invalid && (editForm.get('dns2')!.dirty || editForm.get('dns2')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('dns2')?.errors?.wrongIpAddress" jhiTranslate="voipadminApp.device.validation.ipAddressPattern">
+                      You provided wrong IP-address.
+                    </small>
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('dns2')?.errors?.wrongDomainName" jhiTranslate="voipadminApp.device.validation.domainNamePattern">
+                      You provided wrong domain name.
+                    </small>
+                  </div>
+                </div>
 
-              <div class="form-group">
-                <label class="form-control-label" jhiTranslate="voipadminApp.device.dns2" for="field_dns2">Dns 2</label>
-                <input type="text" class="form-control" name="dns2" id="field_dns2" data-cy="dns2" formControlName="dns2" />
+                <div class="form-group">
+                  <label class="form-control-label" jhiTranslate="voipadminApp.device.dns2" for="field_dns2">Dns 2</label>
+                  <input type="text" class="form-control" name="dns2" id="field_dns2" data-cy="dns2" formControlName="dns2" />
+                </div>
+                <div *ngIf="editForm.get('dns1')!.invalid && (editForm.get('dns1')!.dirty || editForm.get('dns1')!.touched)">
+                  <small class="form-text text-danger"
+                         *ngIf="editForm.get('dns1')?.errors?.wrongIpAddress" jhiTranslate="voipadminApp.device.validation.ipAddressPattern">
+                    You provided wrong IP-address.
+                  </small>
+                  <small class="form-text text-danger"
+                         *ngIf="editForm.get('dns1')?.errors?.wrongDomainName" jhiTranslate="voipadminApp.device.validation.domainNamePattern">
+                    You provided wrong domain name.
+                  </small>
+                </div>
               </div>
 
               <div class="form-group">
@@ -155,52 +198,6 @@
               </div>
 
               <div class="form-group">
-                <label class="form-control-label" jhiTranslate="voipadminApp.device.configuration" for="field_configuration">Configuration</label>
-                <div>
-                  <div *ngIf="editForm.get('configuration')!.value" class="form-text text-danger clearfix">
-                    <a
-                      class="pull-left"
-                      (click)="openFile(editForm.get('configuration')!.value, editForm.get('configurationContentType')!.value)"
-                      jhiTranslate="entity.action.open"
-                    >open</a
-                    ><br />
-                    <span class="pull-left"
-                    >{{ editForm.get('configurationContentType')!.value }}, {{ byteSize(editForm.get('configuration')!.value) }}</span
-                    >
-                    <button
-                      type="button"
-                      (click)="editForm.patchValue({ configuration: null }); editForm.patchValue({ configurationContentType: null })"
-                      class="btn btn-secondary btn-xs pull-right"
-                    >
-                      <fa-icon icon="times"></fa-icon>
-                    </button>
-                  </div>
-                  <input
-                    type="file"
-                    id="file_configuration"
-                    data-cy="configuration"
-                    (change)="setFileData($event, 'configuration', false)"
-                    jhiTranslate="entity.action.addblob"
-                  />
-                </div>
-                <input
-                  type="hidden"
-                  class="form-control"
-                  name="configuration"
-                  id="field_configuration"
-                  data-cy="configuration"
-                  formControlName="configuration"
-                />
-                <input
-                  type="hidden"
-                  class="form-control"
-                  name="configurationContentType"
-                  id="field_configurationContentType"
-                  formControlName="configurationContentType"
-                />
-              </div>
-
-              <div class="form-group">
                 <label class="form-control-label" jhiTranslate="voipadminApp.device.model" for="field_model">Model</label>
                 <select class="form-control" id="field_model" data-cy="model" name="model" formControlName="model">
                   <option [ngValue]="null"></option>
@@ -208,7 +205,7 @@
                     [ngValue]="deviceModelOption.id === editForm.get('model')!.value?.id ? editForm.get('model')!.value : deviceModelOption"
                     *ngFor="let deviceModelOption of deviceModelsSharedCollection; trackBy: trackDeviceModelById"
                   >
-                    {{ deviceModelOption.name }}
+                    {{ deviceModelOption?.vendor?.name }} {{ deviceModelOption.name }}
                   </option>
                 </select>
               </div>
@@ -233,7 +230,11 @@
               "
                     *ngFor="let responsiblePersonOption of responsiblePeopleSharedCollection; trackBy: trackResponsiblePersonById"
                   >
-                    {{ responsiblePersonOption.lastName }}
+                    {{ responsiblePersonOption.lastName }} {{ responsiblePersonOption.firstName | firstLetter }}
+                    {{ responsiblePersonOption.secondName | firstLetter }}
+                    <span *ngIf="responsiblePersonOption?.position || responsiblePersonOption?.room">
+                      ({{ responsiblePersonOption?.position }} {{ responsiblePersonOption?.room }})
+                    </span>
                   </option>
                 </select>
               </div>
