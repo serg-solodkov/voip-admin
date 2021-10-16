@@ -9,221 +9,186 @@
         Create or edit a Device Model
       </h2>
 
-      <div>
-        <jhi-alert-error></jhi-alert-error>
+      <ul ngbNav #nav='ngbNav' class="nav-tabs">
+        <li ngbNavItem>
+          <a ngbNavLink>General</a>
+          <ng-template ngbNavContent>
+            <div class="tab-content">
+              <jhi-alert-error></jhi-alert-error>
 
-        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div>
+              <div class="form-group">
+                <label class="form-control-label" jhiTranslate="voipadminApp.deviceModel.name" for="field_name">Name</label>
+                <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+                <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+                  <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                  </small>
+                </div>
+              </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="voipadminApp.deviceModel.name" for="field_name">Name</label>
-          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
-          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
-              This field is required.
-            </small>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="voipadminApp.deviceModel.isConfigurable" for="field_isConfigurable"
-            >Is Configurable</label
-          >
-          <input
-            type="checkbox"
-            class="form-check"
-            name="isConfigurable"
-            id="field_isConfigurable"
-            data-cy="isConfigurable"
-            formControlName="isConfigurable"
-          />
-          <div
-            *ngIf="
+              <div class="form-group">
+                <label class="form-control-label" jhiTranslate="voipadminApp.deviceModel.isConfigurable" for="field_isConfigurable"
+                >Is Configurable</label
+                >
+                <input
+                  type="checkbox"
+                  class="form-check"
+                  name="isConfigurable"
+                  id="field_isConfigurable"
+                  data-cy="isConfigurable"
+                  formControlName="isConfigurable"
+                />
+                <div
+                  *ngIf="
               editForm.get('isConfigurable')!.invalid && (editForm.get('isConfigurable')!.dirty || editForm.get('isConfigurable')!.touched)
             "
-          >
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('isConfigurable')?.errors?.required"
-              jhiTranslate="entity.validation.required"
-            >
-              This field is required.
-            </small>
-          </div>
-        </div>
+                >
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="editForm.get('isConfigurable')?.errors?.required"
+                    jhiTranslate="entity.validation.required"
+                  >
+                    This field is required.
+                  </small>
+                </div>
+              </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="voipadminApp.deviceModel.linesCount" for="field_linesCount">Lines Count</label>
-          <input
-            type="number"
-            class="form-control"
-            name="linesCount"
-            id="field_linesCount"
-            data-cy="linesCount"
-            formControlName="linesCount"
-          />
-        </div>
+              <div *ngIf="editForm.get('isConfigurable')?.value" class="form-group">
+                <label class="form-control-label" jhiTranslate="voipadminApp.deviceModel.linesCount" for="field_linesCount">Lines Count</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="linesCount"
+                  id="field_linesCount"
+                  data-cy="linesCount"
+                  formControlName="linesCount"
+                />
+              </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="voipadminApp.deviceModel.configTemplate" for="field_configTemplate"
-            >Config Template</label
-          >
-          <div>
-            <div *ngIf="editForm.get('configTemplate')!.value" class="form-text text-danger clearfix">
-              <a
-                class="pull-left"
-                (click)="openFile(editForm.get('configTemplate')!.value, editForm.get('configTemplateContentType')!.value)"
-                jhiTranslate="entity.action.open"
-                >open</a
-              ><br />
-              <span class="pull-left"
-                >{{ editForm.get('configTemplateContentType')!.value }}, {{ byteSize(editForm.get('configTemplate')!.value) }}</span
-              >
-              <button
-                type="button"
-                (click)="editForm.patchValue({ configTemplate: null }); editForm.patchValue({ configTemplateContentType: null })"
-                class="btn btn-secondary btn-xs pull-right"
-              >
-                <fa-icon icon="times"></fa-icon>
-              </button>
-            </div>
-            <input
-              type="file"
-              id="file_configTemplate"
-              data-cy="configTemplate"
-              (change)="setFileData($event, 'configTemplate', false)"
-              jhiTranslate="entity.action.addblob"
-            />
-          </div>
-          <input
-            type="hidden"
-            class="form-control"
-            name="configTemplate"
-            id="field_configTemplate"
-            data-cy="configTemplate"
-            formControlName="configTemplate"
-          />
-          <input
-            type="hidden"
-            class="form-control"
-            name="configTemplateContentType"
-            id="field_configTemplateContentType"
-            formControlName="configTemplateContentType"
-          />
-        </div>
+              <div *ngIf="editForm.get('isConfigurable')?.value" class="form-group">
+                <label class="form-control-label" jhiTranslate="voipadminApp.deviceModel.firmwareFile" for="field_firmwareFile"
+                >Firmware File</label
+                >
+                <div>
+                  <div *ngIf="editForm.get('firmwareFile')!.value" class="form-text text-danger clearfix">
+                    <a
+                      class="pull-left"
+                      (click)="openFile(editForm.get('firmwareFile')!.value, editForm.get('firmwareFileContentType')!.value)"
+                      jhiTranslate="entity.action.open"
+                    >open</a
+                    ><br />
+                    <span class="pull-left"
+                    >{{ editForm.get('firmwareFileContentType')!.value }}, {{ byteSize(editForm.get('firmwareFile')!.value) }}</span
+                    >
+                    <button
+                      type="button"
+                      (click)="editForm.patchValue({ firmwareFile: null }); editForm.patchValue({ firmwareFileContentType: null })"
+                      class="btn btn-secondary btn-xs pull-right"
+                    >
+                      <fa-icon icon="times"></fa-icon>
+                    </button>
+                  </div>
+                  <input
+                    type="file"
+                    id="file_firmwareFile"
+                    data-cy="firmwareFile"
+                    (change)="setFileData($event, 'firmwareFile', false)"
+                    jhiTranslate="entity.action.addblob"
+                  />
+                </div>
+                <input
+                  type="hidden"
+                  class="form-control"
+                  name="firmwareFile"
+                  id="field_firmwareFile"
+                  data-cy="firmwareFile"
+                  formControlName="firmwareFile"
+                />
+                <input
+                  type="hidden"
+                  class="form-control"
+                  name="firmwareFileContentType"
+                  id="field_firmwareFileContentType"
+                  formControlName="firmwareFileContentType"
+                />
+              </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="voipadminApp.deviceModel.firmwareFile" for="field_firmwareFile"
-            >Firmware File</label
-          >
-          <div>
-            <div *ngIf="editForm.get('firmwareFile')!.value" class="form-text text-danger clearfix">
-              <a
-                class="pull-left"
-                (click)="openFile(editForm.get('firmwareFile')!.value, editForm.get('firmwareFileContentType')!.value)"
-                jhiTranslate="entity.action.open"
-                >open</a
-              ><br />
-              <span class="pull-left"
-                >{{ editForm.get('firmwareFileContentType')!.value }}, {{ byteSize(editForm.get('firmwareFile')!.value) }}</span
-              >
-              <button
-                type="button"
-                (click)="editForm.patchValue({ firmwareFile: null }); editForm.patchValue({ firmwareFileContentType: null })"
-                class="btn btn-secondary btn-xs pull-right"
-              >
-                <fa-icon icon="times"></fa-icon>
-              </button>
-            </div>
-            <input
-              type="file"
-              id="file_firmwareFile"
-              data-cy="firmwareFile"
-              (change)="setFileData($event, 'firmwareFile', false)"
-              jhiTranslate="entity.action.addblob"
-            />
-          </div>
-          <input
-            type="hidden"
-            class="form-control"
-            name="firmwareFile"
-            id="field_firmwareFile"
-            data-cy="firmwareFile"
-            formControlName="firmwareFile"
-          />
-          <input
-            type="hidden"
-            class="form-control"
-            name="firmwareFileContentType"
-            id="field_firmwareFileContentType"
-            formControlName="firmwareFileContentType"
-          />
-        </div>
+              <div class="form-group">
+                <label class="form-control-label" jhiTranslate="voipadminApp.deviceModel.deviceType" for="field_deviceType">Device Type</label>
+                <select class="form-control" name="deviceType" formControlName="deviceType" id="field_deviceType" data-cy="deviceType">
+                  <option [ngValue]="null">{{ 'voipadminApp.DeviceType.null' | translate }}</option>
+                  <option value="IPPHONE">{{ 'voipadminApp.DeviceType.IPPHONE' | translate }}</option>
+                  <option value="IPGATEWAY">{{ 'voipadminApp.DeviceType.IPGATEWAY' | translate }}</option>
+                  <option value="HANDSET">{{ 'voipadminApp.DeviceType.HANDSET' | translate }}</option>
+                  <option value="HEADSET">{{ 'voipadminApp.DeviceType.HEADSET' | translate }}</option>
+                  <option value="OTHER">{{ 'voipadminApp.DeviceType.OTHER' | translate }}</option>
+                </select>
+              </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="voipadminApp.deviceModel.deviceType" for="field_deviceType">Device Type</label>
-          <select class="form-control" name="deviceType" formControlName="deviceType" id="field_deviceType" data-cy="deviceType">
-            <option [ngValue]="null">{{ 'voipadminApp.DeviceType.null' | translate }}</option>
-            <option value="IPPHONE">{{ 'voipadminApp.DeviceType.IPPHONE' | translate }}</option>
-            <option value="IPGATEWAY">{{ 'voipadminApp.DeviceType.IPGATEWAY' | translate }}</option>
-            <option value="HANDSET">{{ 'voipadminApp.DeviceType.HANDSET' | translate }}</option>
-            <option value="HEADSET">{{ 'voipadminApp.DeviceType.HEADSET' | translate }}</option>
-            <option value="OTHER">{{ 'voipadminApp.DeviceType.OTHER' | translate }}</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="voipadminApp.deviceModel.otherDeviceType" for="field_otherDeviceType"
-            >Other Device Type</label
-          >
-          <select
-            class="form-control"
-            id="field_otherDeviceType"
-            data-cy="otherDeviceType"
-            name="otherDeviceType"
-            formControlName="otherDeviceType"
-          >
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="
+              <div *ngIf="editForm.get('deviceType')?.value === 'OTHER'" class="form-group">
+                <label class="form-control-label" jhiTranslate="voipadminApp.deviceModel.otherDeviceType" for="field_otherDeviceType"
+                >Other Device Type</label
+                >
+                <select
+                  class="form-control"
+                  id="field_otherDeviceType"
+                  data-cy="otherDeviceType"
+                  name="otherDeviceType"
+                  formControlName="otherDeviceType"
+                >
+                  <option [ngValue]="null"></option>
+                  <option
+                    [ngValue]="
                 otherDeviceTypeOption.id === editForm.get('otherDeviceType')!.value?.id
                   ? editForm.get('otherDeviceType')!.value
                   : otherDeviceTypeOption
               "
-              *ngFor="let otherDeviceTypeOption of otherDeviceTypesSharedCollection; trackBy: trackOtherDeviceTypeById"
-            >
-              {{ otherDeviceTypeOption.id }}
-            </option>
-          </select>
-        </div>
+                    *ngFor="let otherDeviceTypeOption of otherDeviceTypesSharedCollection; trackBy: trackOtherDeviceTypeById"
+                  >
+                    {{ otherDeviceTypeOption.id }}
+                  </option>
+                </select>
+              </div>
 
-        <div class="form-group">
-          <label class="form-control-label" jhiTranslate="voipadminApp.deviceModel.vendor" for="field_vendor">Vendor</label>
-          <select class="form-control" id="field_vendor" data-cy="vendor" name="vendor" formControlName="vendor">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="vendorOption.id === editForm.get('vendor')!.value?.id ? editForm.get('vendor')!.value : vendorOption"
-              *ngFor="let vendorOption of vendorsSharedCollection; trackBy: trackVendorById"
-            >
-              {{ vendorOption.name }}
-            </option>
-          </select>
-        </div>
+              <div class="form-group">
+                <label class="form-control-label" jhiTranslate="voipadminApp.deviceModel.vendor" for="field_vendor">Vendor</label>
+                <select class="form-control" id="field_vendor" data-cy="vendor" name="vendor" formControlName="vendor">
+                  <option [ngValue]="null"></option>
+                  <option
+                    [ngValue]="vendorOption.id === editForm.get('vendor')!.value?.id ? editForm.get('vendor')!.value : vendorOption"
+                    *ngFor="let vendorOption of vendorsSharedCollection; trackBy: trackVendorById"
+                  >
+                    {{ vendorOption.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </ng-template>
+        </li>
 
-        <div class="form-group">
-          <label jhiTranslate="voipadminApp.deviceModel.options" for="field_options">Options</label>
-          <select class="form-control" id="field_options" data-cy="options" multiple name="options" formControlName="options">
-            <option
-              [ngValue]="getSelectedOption(optionOption, editForm.get('options')!.value)"
-              *ngFor="let optionOption of optionsSharedCollection; trackBy: trackOptionById"
-            >
-              {{ optionOption.code }}
-            </option>
-          </select>
-        </div>
-      </div>
+        <li ngbNavItem>
+          <a ngbNavLink>Options</a>
+          <ng-template ngbNavContent>
+            <div class="tab-content">
+              <jhi-alert-error></jhi-alert-error>
+
+              <div class="form-group">
+                <label jhiTranslate="voipadminApp.deviceModel.options" for="field_options">Options</label>
+                <select class="form-control" id="field_options" data-cy="options" multiple name="options" formControlName="options">
+                  <option
+                    [ngValue]="getSelectedOption(optionOption, editForm.get('options')!.value)"
+                    *ngFor="let optionOption of optionsSharedCollection; trackBy: trackOptionById"
+                  >
+                    {{ optionOption.code }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+      </ul>
+
+      <div [ngbNavOutlet]="nav"></div>
 
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">

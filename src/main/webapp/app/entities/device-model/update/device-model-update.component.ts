@@ -32,7 +32,7 @@ export class DeviceModelUpdateComponent implements OnInit {
     id: [],
     name: [null, [Validators.required]],
     isConfigurable: [null, [Validators.required]],
-    linesCount: [],
+    linesCount: [null, [Validators.min(1)]],
     configTemplate: [],
     configTemplateContentType: [],
     firmwareFile: [],
