@@ -2,31 +2,33 @@
   "voipadminApp": {
     "voipAccount": {
       "home": {
-        "title": "Voip Accounts",
+        "title": "VoIP Accounts",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Voip Account",
-        "createOrEditLabel": "Create or edit a Voip Account",
-        "notFound": "No Voip Accounts found"
+        "createLabel": "Create a new VoIP Account",
+        "createOrEditLabel": "Create or edit a VoIP Account",
+        "notFound": "No VoIP Accounts found"
       },
-      "created": "A new Voip Account is created with identifier {{ param }}",
-      "updated": "A Voip Account is updated with identifier {{ param }}",
-      "deleted": "A Voip Account is deleted with identifier {{ param }}",
+      "created": "A new VoIP Account is created with identifier {{ param }}",
+      "updated": "A VoIP Account is updated with identifier {{ param }}",
+      "deleted": "A VoIP Account is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Voip Account {{ id }}?"
+        "question": "Are you sure you want to delete VoIP Account {{ id }}?"
       },
       "detail": {
-        "title": "Voip Account"
+        "title": "VoIP Account"
       },
       "id": "ID",
       "manuallyCreated": "Manually Created",
       "username": "Username",
       "password": "Password",
-      "sipServer": "Sip Server",
-      "sipPort": "Sip Port",
+      "sipServer": "SIP-Server",
+      "sipPort": "SIP-Port",
       "lineEnable": "Line Enable",
       "lineNumber": "Line Number",
+      "lineWithNumber": "Line # {{ lineNumber }}",
       "asteriskAccount": "Asterisk Account",
-      "device": "Device"
+      "device": "Device",
+      "singleSipServer": "Single SIP-Server"
     }
   }
 }

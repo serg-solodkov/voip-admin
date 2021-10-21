@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
@@ -15,6 +15,9 @@ import { DeviceModelService } from 'app/entities/device-model/service/device-mod
 import { IResponsiblePerson } from 'app/entities/responsible-person/responsible-person.model';
 import { ResponsiblePersonService } from 'app/entities/responsible-person/service/responsible-person.service';
 import { ValidationService } from "../../../shared/service/validation.service";
+import { IVoipAccount } from "../../voip-account/voip-account.model";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { DeviceModelChangeDialogComponent } from "./device-model-change-dialog/device-model-change-dialog.component";
 
 @Component({
   selector: 'jhi-device-update',
@@ -27,6 +30,8 @@ export class DeviceUpdateComponent implements OnInit {
   devicesSharedCollection: IDevice[] = [];
   deviceModelsSharedCollection: IDeviceModel[] = [];
   responsiblePeopleSharedCollection: IResponsiblePerson[] = [];
+
+  oldModelValue: number | undefined;
 
   editForm = this.fb.group({
     id: [],
@@ -58,7 +63,15 @@ export class DeviceUpdateComponent implements OnInit {
     model: [],
     responsiblePerson: [],
     parent: [],
+    voipAccounts: this.fb.array([]),
+    enableSingleSipServer: [true],
+    singleSipServer: [],
+    singleSipPort: [],
   });
+
+  get voipAccounts(): FormArray {
+    return this.editForm.get('voipAccounts') as FormArray;
+  }
 
   constructor(
     protected dataUtils: DataUtils,
@@ -68,13 +81,14 @@ export class DeviceUpdateComponent implements OnInit {
     protected responsiblePersonService: ResponsiblePersonService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder,
-    protected validationService: ValidationService
+    protected validationService: ValidationService,
+    protected modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ device }) => {
       this.updateForm(device);
-
+      this.oldModelValue = device.model;
       this.loadRelationshipsOptions();
     });
   }
@@ -99,6 +113,7 @@ export class DeviceUpdateComponent implements OnInit {
   }
 
   save(): void {
+    this.beforeSave();
     this.isSaving = true;
     const device = this.createFromForm();
     if (device.id) {
@@ -118,6 +133,107 @@ export class DeviceUpdateComponent implements OnInit {
 
   trackResponsiblePersonById(index: number, item: IResponsiblePerson): number {
     return item.id!;
+  }
+
+  onDeviceModelChange(): void {
+    if (this.oldModelValue) {
+      const modalRef = this.modalService.open(DeviceModelChangeDialogComponent, { size: 'lg', backdrop: 'static' });
+      modalRef.componentInstance.oldValue = this.oldModelValue;
+      modalRef.componentInstance.newValue = this.editForm.get('model')?.value;
+      modalRef.result.then(result => {
+        this.editForm.patchValue({
+          model: result,
+        });
+        if (result !== this.oldModelValue) {
+          this.voipAccounts.clear();
+          this.initVoipAccounts();
+        }
+        this.oldModelValue = result;
+      });
+    } else {
+      this.oldModelValue = this.editForm.get('model')?.value;
+      this.initVoipAccounts();
+    }
+  }
+
+  initVoipAccounts(voipAccounts?: IVoipAccount[]): void {
+    if (!this.editForm.get('model')?.value) {
+      this.voipAccounts.clear();
+      return;
+    }
+
+    const deviceModel = this.deviceModelsSharedCollection.find(model => model.id === this.editForm.get('model')?.value?.id);
+    if (deviceModel?.isConfigurable && deviceModel.linesCount! > 0) {
+      if (voipAccounts && voipAccounts.length > 0) {
+        voipAccounts
+          .sort((account1, account2) => account1.lineNumber! - account2.lineNumber!)
+          .forEach(account => this.addVoipAccount(account));
+
+        const sipServers = new Set(voipAccounts.filter(account => account.sipServer).map(account => account.sipServer));
+        const sipPorts = new Set(voipAccounts.filter(account => account.sipPort).map(account => account.sipPort));
+        this.editForm.patchValue({
+          enableSingleSipServer: sipServers.size === 1 && sipPorts.size === 1,
+          singleSipServer: sipServers.size === 1 && sipPorts.size === 1 ? sipServers.values().next().value : null,
+          singleSipPort: sipServers.size === 1 && sipPorts.size === 1 ? sipPorts.values().next().value : null,
+        });
+      } else {
+        for (let i = 0; i < deviceModel.linesCount!; i++) {
+          this.addVoipAccount();
+        }
+        this.editForm.patchValue({
+          enableSingleSipServer: true,
+          singleSipServer: null,
+          singleSipPort: null,
+        });
+      }
+    }
+  }
+
+  addVoipAccount(voipAccount?: IVoipAccount): void {
+    this.voipAccounts.push(
+      this.fb.group({
+        id: [voipAccount ? voipAccount.id : null],
+        manuallyCreated: [true],
+        username: [voipAccount ? voipAccount.username : null],
+        password: [voipAccount ? voipAccount.password : null],
+        sipServer: [voipAccount ? voipAccount.sipServer : null],
+        sipPort: [voipAccount ? voipAccount.sipPort : null],
+        lineEnable: [voipAccount ? voipAccount.lineEnable : false],
+        lineNumber: [voipAccount ? voipAccount.lineNumber : this.voipAccounts.length + 1],
+        deviceId: [this.editForm.get('id')!.value],
+      })
+    );
+  }
+
+  clearLineSetting(index: number): void {
+    this.voipAccounts
+      .get(index.toString())
+      ?.patchValue({
+        id: null,
+        manuallyCreated: true,
+        username: null,
+        password: null,
+        sipServer: null,
+        sipPort: null,
+        deviceId: this.editForm.get('id')!.value,
+      });
+  }
+
+  beforeSave(): void {
+    this.handleVoipAccountsSingleSipServer();
+  }
+
+  handleVoipAccountsSingleSipServer(): void {
+    if (this.voipAccounts.length === 0 || !this.editForm.get('enableSingleSipServer')?.value
+      || !this.editForm.get('singleSipServer')?.value || !this.editForm.get('singleSipPort')?.value) {
+      return;
+    }
+    for (let index = 0; index < this.voipAccounts.length; index++) {
+      this.voipAccounts.get(index.toString())?.patchValue({
+        sipServer: this.editForm.get('singleSipServer')?.value,
+        sipPort: this.editForm.get('singleSipPort')?.value
+      });
+    }
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IDevice>>): void {
@@ -170,6 +286,9 @@ export class DeviceUpdateComponent implements OnInit {
       this.deviceModelsSharedCollection,
       device.model
     );
+    if (device.model) {
+      this.initVoipAccounts(device.voipAccounts!);
+    }
     this.responsiblePeopleSharedCollection = this.responsiblePersonService.addResponsiblePersonToCollectionIfMissing(
       this.responsiblePeopleSharedCollection,
       device.responsiblePerson
@@ -232,6 +351,7 @@ export class DeviceUpdateComponent implements OnInit {
       model: this.editForm.get(['model'])!.value,
       responsiblePerson: this.editForm.get(['responsiblePerson'])!.value,
       parent: this.editForm.get(['parent'])!.value,
+      voipAccounts: this.editForm.get(['voipAccounts'])!.value,
     };
   }
 }

@@ -2,6 +2,7 @@ package ru.solodkov.voipadmin.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Lob;
 import javax.validation.constraints.*;
 import ru.solodkov.voipadmin.domain.enumeration.ProvisioningMode;
@@ -55,6 +56,8 @@ public class DeviceDTO implements Serializable {
     private ResponsiblePersonDTO responsiblePerson;
 
     private DeviceDTO parent;
+
+    private Set<VoipAccountDTO> voipAccounts;
 
     public Long getId() {
         return id;
@@ -230,6 +233,14 @@ public class DeviceDTO implements Serializable {
 
     public void setParent(DeviceDTO parent) {
         this.parent = parent;
+    }
+
+    public Set<VoipAccountDTO> getVoipAccounts() {
+        return voipAccounts;
+    }
+
+    public void setVoipAccounts(Set<VoipAccountDTO> voipAccounts) {
+        this.voipAccounts = voipAccounts;
     }
 
     @Override

@@ -24,7 +24,7 @@ public class VoipAccountDTO implements Serializable {
 
     private Boolean lineEnable;
 
-    private String lineNumber;
+    private Integer lineNumber;
 
     private AsteriskAccountDTO asteriskAccount;
 
@@ -86,11 +86,11 @@ public class VoipAccountDTO implements Serializable {
         this.lineEnable = lineEnable;
     }
 
-    public String getLineNumber() {
+    public Integer getLineNumber() {
         return lineNumber;
     }
 
-    public void setLineNumber(String lineNumber) {
+    public void setLineNumber(Integer lineNumber) {
         this.lineNumber = lineNumber;
     }
 

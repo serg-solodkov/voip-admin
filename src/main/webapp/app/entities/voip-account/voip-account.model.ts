@@ -9,7 +9,7 @@ export interface IVoipAccount {
   sipServer?: string | null;
   sipPort?: string | null;
   lineEnable?: boolean | null;
-  lineNumber?: string | null;
+  lineNumber?: number | null;
   asteriskAccount?: IAsteriskAccount | null;
   device?: IDevice | null;
 }
@@ -23,7 +23,7 @@ export class VoipAccount implements IVoipAccount {
     public sipServer?: string | null,
     public sipPort?: string | null,
     public lineEnable?: boolean | null,
-    public lineNumber?: string | null,
+    public lineNumber?: number | null,
     public asteriskAccount?: IAsteriskAccount | null,
     public device?: IDevice | null
   ) {

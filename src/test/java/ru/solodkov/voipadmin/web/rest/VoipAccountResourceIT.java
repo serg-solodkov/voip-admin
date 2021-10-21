@@ -49,8 +49,8 @@ class VoipAccountResourceIT {
     private static final Boolean DEFAULT_LINE_ENABLE = false;
     private static final Boolean UPDATED_LINE_ENABLE = true;
 
-    private static final String DEFAULT_LINE_NUMBER = "AAAAAAAAAA";
-    private static final String UPDATED_LINE_NUMBER = "BBBBBBBBBB";
+    private static final Integer DEFAULT_LINE_NUMBER = 2;
+    private static final Integer UPDATED_LINE_NUMBER = 3;
 
     private static final String ENTITY_API_URL = "/api/voip-accounts";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";

@@ -14,6 +14,10 @@
       "delete": {
         "question": "Are you sure you want to delete Device {{ id }}?"
       },
+      "modelChange": {
+        "question": "Are you sure you want to change this device's model? This will erase model's dependent settings, including line setting.",
+        "title": "Confirm Model Changing"
+      },
       "detail": {
         "title": "Device"
       },

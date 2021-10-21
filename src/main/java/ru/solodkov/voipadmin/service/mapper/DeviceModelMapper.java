@@ -22,5 +22,7 @@ public interface DeviceModelMapper extends EntityMapper<DeviceModelDTO, DeviceMo
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "name")
+    @Mapping(target = "isConfigurable", source = "isConfigurable")
+    @Mapping(target = "linesCount", source = "linesCount")
     DeviceModelDTO toDtoName(DeviceModel deviceModel);
 }

@@ -199,8 +199,8 @@
 
               <div class="form-group">
                 <label class="form-control-label" jhiTranslate="voipadminApp.device.model" for="field_model">Model</label>
-                <select class="form-control" id="field_model" data-cy="model" name="model" formControlName="model">
-                  <option [ngValue]="null"></option>
+                <select class="form-control" id="field_model" data-cy="model" name="model" formControlName="model"
+                        (change)="onDeviceModelChange()">
                   <option
                     [ngValue]="deviceModelOption.id === editForm.get('model')!.value?.id ? editForm.get('model')!.value : deviceModelOption"
                     *ngFor="let deviceModelOption of deviceModelsSharedCollection; trackBy: trackDeviceModelById"
@@ -259,7 +259,75 @@
           <a ngbNavLink>Line Settings</a>
           <ng-template ngbNavContent>
             <div class="tab-content">
-              Line Settings
+
+              <div class="form-group">
+                <label class="form-control-label" jhiTranslate="voipadminApp.voipAccount.singleSipServer" [for]="'field_enableSingleSipServer'">Single SIP-Server</label>
+                <input
+                  type="checkbox"
+                  class="form-check"
+                  name="enableSingleSipServer"
+                  id="field_enableSingleSipServer"
+                  data-cy="enableSingleSipServer"
+                  formControlName="enableSingleSipServer"
+                />
+              </div>
+
+              <div *ngIf="editForm.get('enableSingleSipServer')?.value">
+                <div class="form-group">
+                  <label class="form-control-label" jhiTranslate="voipadminApp.voipAccount.sipServer" for="field_singleSipServer">SIP-Server</label>
+                  <input type="text" class="form-control" name="value" id="field_singleSipServer"
+                         formControlName="singleSipServer"/>
+                </div>
+                <div class="form-group">
+                  <label class="form-control-label" jhiTranslate="voipadminApp.voipAccount.sipPort" for="field_singleSipPort">SIP-Port</label>
+                  <input type="text" class="form-control" name="value" id="field_singleSipPort"
+                         formControlName="singleSipPort"/>
+                </div>
+
+              </div>
+
+              <div class="setting-group" formArrayName="voipAccounts">
+                <fieldset *ngFor="let voipAccount of voipAccounts.controls; let i = index;" [formGroupName]="i">
+                  <legend jhiTranslate="voipadminApp.voipAccount.lineWithNumber" [translateValues]="{ lineNumber: i + 1 }">Line # {{ i + 1 }}</legend>
+                  <div>
+                    <button type="button" class="close" aria-hidden="true" title="Clear line settings"
+                            (click)="clearLineSetting(i)">&times;</button>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="voipadminApp.voipAccount.lineEnable" [for]="'field_lineEnable' + i">Line Enable</label>
+                    <input
+                      type="checkbox"
+                      class="form-check"
+                      name="lineEnable"
+                      [id]="'field_lineEnable' + i"
+                      data-cy="lineEnable"
+                      formControlName="lineEnable"
+                    />
+                  </div>
+
+                  <div class="row form-group">
+                    <div class="col">
+                      <input type="text" class="form-control" name="value" id="field_username" placeholder="Username"
+                             formControlName="username"/>
+                    </div>
+                    <div class="col">
+                      <input type="text" class="form-control" name="value" id="field_password" placeholder="Password"
+                             formControlName="password"/>
+                    </div>
+                  </div>
+
+                  <div class="row form-group" *ngIf="!editForm.get('enableSingleSipServer')?.value">
+                    <div class="col-md-9">
+                      <input type="text" class="form-control" name="value" id="field_sipServer" placeholder="SIP-Server"
+                             formControlName="sipServer"/>
+                    </div>
+                    <div class="col-md-3">
+                      <input type="text" class="form-control" name="value" id="field_sipPort" placeholder="SIP-Port"
+                             formControlName="sipPort"/>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
             </div>
           </ng-template>
         </li>

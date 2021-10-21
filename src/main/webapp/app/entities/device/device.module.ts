@@ -5,10 +5,17 @@ import { DeviceDetailComponent } from './detail/device-detail.component';
 import { DeviceUpdateComponent } from './update/device-update.component';
 import { DeviceDeleteDialogComponent } from './delete/device-delete-dialog.component';
 import { DeviceRoutingModule } from './route/device-routing.module';
+import { DeviceModelChangeDialogComponent } from "./update/device-model-change-dialog/device-model-change-dialog.component";
 
 @NgModule({
   imports: [SharedModule, DeviceRoutingModule],
-  declarations: [DeviceComponent, DeviceDetailComponent, DeviceUpdateComponent, DeviceDeleteDialogComponent],
+  declarations: [
+    DeviceComponent,
+    DeviceDetailComponent,
+    DeviceUpdateComponent,
+    DeviceDeleteDialogComponent,
+    DeviceModelChangeDialogComponent
+  ],
   entryComponents: [DeviceDeleteDialogComponent],
 })
 export class DeviceModule {}
