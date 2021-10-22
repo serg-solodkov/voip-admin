@@ -17,6 +17,8 @@ public class OptionDTO implements Serializable {
 
     private String descr;
 
+    private String codeWithDescr;
+
     private OptionValueType valueType;
 
     private Boolean multiple;
@@ -45,6 +47,14 @@ public class OptionDTO implements Serializable {
 
     public void setDescr(String descr) {
         this.descr = descr;
+    }
+
+    public String getCodeWithDescr() {
+        return codeWithDescr;
+    }
+
+    public void setCodeWithDescr(String codeWithDescr) {
+        this.codeWithDescr = codeWithDescr;
     }
 
     public OptionValueType getValueType() {

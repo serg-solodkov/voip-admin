@@ -21,7 +21,6 @@ import { DeviceModelChangeDialogComponent } from "./device-model-change-dialog/d
 
 @Component({
   selector: 'jhi-device-update',
-  styleUrls: ['./device-update.component.scss'],
   templateUrl: './device-update.component.html',
 })
 export class DeviceUpdateComponent implements OnInit {

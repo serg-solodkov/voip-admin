@@ -2,6 +2,7 @@
 @import '~bootstrap/scss/functions';
 @import '~bootswatch/dist/flatly/variables';
 @import '~bootstrap/scss/variables';
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 /* ==============================================================
 Bootstrap tweaks
@@ -168,6 +169,13 @@ ui bootstrap tweaks
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* ==========================================================================
+VoIP-Admin Custom Styles Below
+========================================================================== */
+.tab-content {
+  margin-top: 20px;
 }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */

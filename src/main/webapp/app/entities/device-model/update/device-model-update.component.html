@@ -152,7 +152,8 @@
 
               <div class="form-group">
                 <label class="form-control-label" jhiTranslate="voipadminApp.deviceModel.vendor" for="field_vendor">Vendor</label>
-                <select class="form-control" id="field_vendor" data-cy="vendor" name="vendor" formControlName="vendor">
+                <select class="form-control" id="field_vendor" data-cy="vendor" name="vendor" formControlName="vendor"
+                        (change)="onVendorChange()">
                   <option [ngValue]="null"></option>
                   <option
                     [ngValue]="vendorOption.id === editForm.get('vendor')!.value?.id ? editForm.get('vendor')!.value : vendorOption"
@@ -174,14 +175,11 @@
 
               <div class="form-group">
                 <label jhiTranslate="voipadminApp.deviceModel.options" for="field_options">Options</label>
-                <select class="form-control" id="field_options" data-cy="options" multiple name="options" formControlName="options">
-                  <option
-                    [ngValue]="getSelectedOption(optionOption, editForm.get('options')!.value)"
-                    *ngFor="let optionOption of optionsSharedCollection; trackBy: trackOptionById"
-                  >
-                    {{ optionOption.code }}
-                  </option>
-                </select>
+                <ng-select formControlName="options"
+                           id="field_options"
+                           [items]="optionsSharedCollection"
+                           [multiple]="true"
+                           bindLabel="codeWithDescr"></ng-select>
               </div>
             </div>
           </ng-template>

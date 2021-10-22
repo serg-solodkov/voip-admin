@@ -16,7 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.solodkov.voipadmin.repository.OptionRepository;
+import ru.solodkov.voipadmin.service.OptionQueryService;
 import ru.solodkov.voipadmin.service.OptionService;
+import ru.solodkov.voipadmin.service.criteria.OptionCriteria;
 import ru.solodkov.voipadmin.service.dto.OptionDTO;
 import ru.solodkov.voipadmin.web.rest.errors.BadRequestAlertException;
 import tech.jhipster.web.util.HeaderUtil;
@@ -41,9 +43,12 @@ public class OptionResource {
 
     private final OptionRepository optionRepository;
 
-    public OptionResource(OptionService optionService, OptionRepository optionRepository) {
+    private final OptionQueryService optionQueryService;
+
+    public OptionResource(OptionService optionService, OptionRepository optionRepository, OptionQueryService optionQueryService) {
         this.optionService = optionService;
         this.optionRepository = optionRepository;
+        this.optionQueryService = optionQueryService;
     }
 
     /**
@@ -140,23 +145,27 @@ public class OptionResource {
      * {@code GET  /options} : get all the options.
      *
      * @param pageable the pagination information.
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of options in body.
      */
     @GetMapping("/options")
-    public ResponseEntity<List<OptionDTO>> getAllOptions(
-        Pageable pageable,
-        @RequestParam(required = false, defaultValue = "false") boolean eagerload
-    ) {
-        log.debug("REST request to get a page of Options");
-        Page<OptionDTO> page;
-        if (eagerload) {
-            page = optionService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = optionService.findAll(pageable);
-        }
+    public ResponseEntity<List<OptionDTO>> getAllOptions(OptionCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get Options by criteria: {}", criteria);
+        Page<OptionDTO> page = optionQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /options/count} : count all the options.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/options/count")
+    public ResponseEntity<Long> countOptions(OptionCriteria criteria) {
+        log.debug("REST request to count Options by criteria: {}", criteria);
+        return ResponseEntity.ok().body(optionQueryService.countByCriteria(criteria));
     }
 
     /**

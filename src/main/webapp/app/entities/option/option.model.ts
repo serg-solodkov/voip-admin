@@ -7,6 +7,7 @@ export interface IOption {
   id?: number;
   code?: string | null;
   descr?: string | null;
+  codeWithDescr?: string | null;
   valueType?: OptionValueType | null;
   multiple?: boolean | null;
   possibleValues?: IOptionValue[] | null;
@@ -19,6 +20,7 @@ export class Option implements IOption {
     public id?: number,
     public code?: string | null,
     public descr?: string | null,
+    public codeWithDescr?: string | null,
     public valueType?: OptionValueType | null,
     public multiple?: boolean | null,
     public possibleValues?: IOptionValue[] | null,

@@ -13,7 +13,7 @@ import ru.solodkov.voipadmin.domain.Option;
  * Spring Data SQL repository for the Option entity.
  */
 @Repository
-public interface OptionRepository extends JpaRepository<Option, Long> {
+public interface OptionRepository extends JpaRepository<Option, Long>, JpaSpecificationExecutor<Option> {
     @Query(
         value = "select distinct option from Option option left join fetch option.vendors",
         countQuery = "select count(distinct option) from Option option"

@@ -11,6 +11,7 @@ import ru.solodkov.voipadmin.service.dto.OptionDTO;
 @Mapper(componentModel = "spring", uses = { VendorMapper.class })
 public interface OptionMapper extends EntityMapper<OptionDTO, Option> {
     @Mapping(target = "vendors", source = "vendors", qualifiedByName = "nameSet")
+    @Mapping(target = "codeWithDescr", expression = "java(s.getCode() + \" (\" + s.getDescr() + \")\")")
     OptionDTO toDto(Option s);
 
     @Named("id")
