@@ -21,7 +21,11 @@
       "textValue": "Text Value",
       "option": "Option",
       "selectedValues": "Selected Values",
-      "device": "Device"
+      "device": "Device",
+      "action": {
+        "addNew": "Set option",
+        "setAnother": "Set another option"
+      }
     }
   }
 }

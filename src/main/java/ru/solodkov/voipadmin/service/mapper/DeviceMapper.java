@@ -7,7 +7,10 @@ import ru.solodkov.voipadmin.service.dto.DeviceDTO;
 /**
  * Mapper for the entity {@link Device} and its DTO {@link DeviceDTO}.
  */
-@Mapper(componentModel = "spring", uses = { DeviceModelMapper.class, ResponsiblePersonMapper.class, VoipAccountMapper.class })
+@Mapper(
+    componentModel = "spring",
+    uses = { DeviceModelMapper.class, ResponsiblePersonMapper.class, VoipAccountMapper.class, SettingMapper.class }
+)
 public interface DeviceMapper extends EntityMapper<DeviceDTO, Device> {
     @Mapping(target = "model", source = "model", qualifiedByName = "name")
     @Mapping(target = "responsiblePerson", source = "responsiblePerson", qualifiedByName = "lastName")

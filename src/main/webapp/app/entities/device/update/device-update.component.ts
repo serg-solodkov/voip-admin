@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
@@ -18,9 +18,14 @@ import { ValidationService } from "../../../shared/service/validation.service";
 import { IVoipAccount } from "../../voip-account/voip-account.model";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DeviceModelChangeDialogComponent } from "./device-model-change-dialog/device-model-change-dialog.component";
+import { IOption } from "../../option/option.model";
+import { OptionService } from "../../option/service/option.service";
+import { ISetting, Setting } from "../../setting/setting.model";
+import { IOptionValue } from "../../option-value/option-value.model";
 
 @Component({
   selector: 'jhi-device-update',
+  styleUrls: ['./device-update.component.scss'],
   templateUrl: './device-update.component.html',
 })
 export class DeviceUpdateComponent implements OnInit {
@@ -29,8 +34,10 @@ export class DeviceUpdateComponent implements OnInit {
   devicesSharedCollection: IDevice[] = [];
   deviceModelsSharedCollection: IDeviceModel[] = [];
   responsiblePeopleSharedCollection: IResponsiblePerson[] = [];
+  optionsSharedCollection: IOption[] = [];
+  settingPossibleValues: IOptionValue[][] = [];
 
-  oldModelValue: number | undefined;
+  oldModelValue: IDeviceModel | null = null;
 
   editForm = this.fb.group({
     id: [],
@@ -63,6 +70,7 @@ export class DeviceUpdateComponent implements OnInit {
     responsiblePerson: [],
     parent: [],
     voipAccounts: this.fb.array([]),
+    settings: this.fb.array([]),
     enableSingleSipServer: [true],
     singleSipServer: [],
     singleSipPort: [],
@@ -70,6 +78,10 @@ export class DeviceUpdateComponent implements OnInit {
 
   get voipAccounts(): FormArray {
     return this.editForm.get('voipAccounts') as FormArray;
+  }
+
+  get settings(): FormArray {
+    return this.editForm.get('settings') as FormArray;
   }
 
   constructor(
@@ -81,13 +93,13 @@ export class DeviceUpdateComponent implements OnInit {
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder,
     protected validationService: ValidationService,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    protected optionService: OptionService
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ device }) => {
       this.updateForm(device);
-      this.oldModelValue = device.model;
       this.loadRelationshipsOptions();
     });
   }
@@ -146,12 +158,17 @@ export class DeviceUpdateComponent implements OnInit {
         if (result !== this.oldModelValue) {
           this.voipAccounts.clear();
           this.initVoipAccounts();
+          this.settings.clear();
+          this.initSettings([]);
+          this.loadAvailableOptions();
         }
         this.oldModelValue = result;
       });
     } else {
       this.oldModelValue = this.editForm.get('model')?.value;
       this.initVoipAccounts();
+      this.initSettings([]);
+      this.loadAvailableOptions();
     }
   }
 
@@ -235,6 +252,55 @@ export class DeviceUpdateComponent implements OnInit {
     }
   }
 
+  initSettings(settings: ISetting[] | undefined): void {
+    const settingsControls = this.editForm.get('settings') as FormArray;
+    if (settings && settings.length > 0) {
+      settings.forEach((setting: ISetting, index: number) => {
+        if (setting.option) {
+          this.addPossibleValuesForOption(setting.option, index);
+        }
+        settingsControls.push(
+          this.fb.group({
+            id: [setting.id],
+            textValue: [setting.textValue],
+            selectedValues: [
+              setting.option?.multiple ? setting.selectedValues : setting.selectedValues ? setting.selectedValues[0] : null,
+            ],
+            option: [setting.option]
+          })
+        );
+      });
+    } else {
+      this.addSetting();
+    }
+  }
+
+  onSettingOptionChange(option: IOption, index: number): void {
+    this.addPossibleValuesForOption(option, index);
+  }
+
+  addSetting(): void {
+    this.settings.push(
+      this.fb.group({
+        id: [],
+        textValue: [],
+        selectedValues: [[]],
+        option: [],
+        deviceId: [this.editForm.get('id')!.value],
+      })
+    );
+  }
+
+  removeSetting(index: number): void {
+    this.settings.removeAt(index);
+  }
+
+  addPossibleValuesForOption(option: IOption, arrayIndex: number): void {
+    if (option.possibleValues) {
+      this.settingPossibleValues[arrayIndex] = option.possibleValues;
+    }
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IDevice>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe(
       () => this.onSaveSuccess(),
@@ -285,8 +351,14 @@ export class DeviceUpdateComponent implements OnInit {
       this.deviceModelsSharedCollection,
       device.model
     );
+    const alreadySetOptions = this.editForm.get('settings')!.value.map((setting: ISetting) => setting.option);
+    this.optionsSharedCollection = this.optionService.addOptionToCollectionIfMissing(
+      this.optionsSharedCollection, ...(alreadySetOptions ?? [])
+    );
     if (device.model) {
+      this.oldModelValue = device.model;
       this.initVoipAccounts(device.voipAccounts!);
+      this.initSettings(device.settings!);
     }
     this.responsiblePeopleSharedCollection = this.responsiblePersonService.addResponsiblePersonToCollectionIfMissing(
       this.responsiblePeopleSharedCollection,
@@ -323,6 +395,7 @@ export class DeviceUpdateComponent implements OnInit {
         )
       )
       .subscribe((responsiblePeople: IResponsiblePerson[]) => (this.responsiblePeopleSharedCollection = responsiblePeople));
+    this.loadAvailableOptions();
   }
 
   protected createFromForm(): IDevice {
@@ -351,6 +424,46 @@ export class DeviceUpdateComponent implements OnInit {
       responsiblePerson: this.editForm.get(['responsiblePerson'])!.value,
       parent: this.editForm.get(['parent'])!.value,
       voipAccounts: this.editForm.get(['voipAccounts'])!.value,
+      settings: this.settings
+        .controls.map(settingControl => this.createSettingFromForm(settingControl))
+        .filter(setting => setting.option && (setting.textValue || (setting.selectedValues && setting.selectedValues.length > 0))),
     };
+  }
+
+  private createSettingFromForm(settingControl: AbstractControl): ISetting {
+    return {
+      ...new Setting(),
+      id: settingControl.get('id')?.value,
+      option: settingControl.get('option')?.value,
+      textValue: settingControl.get('textValue')?.value,
+      selectedValues:
+        settingControl.get('option')?.value?.valueType === 'SELECT'
+          ? settingControl.get('option')?.value?.multiple
+          ? settingControl.get('selectedValues')?.value
+          : [settingControl.get('selectedValues')?.value]
+          : null,
+    };
+  }
+
+  private loadAvailableOptions(): void {
+    if (this.editForm.get('model')?.value) {
+      // Load options available for selected device model
+      this.optionService
+        .query({'modelsId.equals': this.editForm.get('model')?.value?.id})
+        .pipe(map((res: HttpResponse<IOption[]>) => res.body ?? []))
+        .pipe(
+          map((options: IOption[]) => {
+            const alreadySetOptions = this.editForm.get('settings')!.value.map((setting: ISetting) => setting.option);
+            this.optionService.addOptionToCollectionIfMissing(
+              options,
+              ...(alreadySetOptions ?? [])
+            );
+            return options;
+          })
+        )
+        .subscribe((options: IOption[]) => (this.optionsSharedCollection = options));
+    } else {
+      this.optionsSharedCollection = [];
+    }
   }
 }

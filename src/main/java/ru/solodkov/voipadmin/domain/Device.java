@@ -82,7 +82,7 @@ public class Device implements Serializable {
     @Column(name = "configuration_content_type")
     private String configurationContentType;
 
-    @OneToMany(mappedBy = "device")
+    @OneToMany(mappedBy = "device", cascade = CascadeType.ALL, orphanRemoval = true)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "option", "selectedValues", "device" }, allowSetters = true)
     private Set<Setting> settings = new HashSet<>();
