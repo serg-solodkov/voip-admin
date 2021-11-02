@@ -24,5 +24,6 @@ public interface DeviceModelMapper extends EntityMapper<DeviceModelDTO, DeviceMo
     @Mapping(target = "name", source = "name")
     @Mapping(target = "isConfigurable", source = "isConfigurable")
     @Mapping(target = "linesCount", source = "linesCount")
+    @Mapping(target = "vendor", source = "vendor")
     DeviceModelDTO toDtoName(DeviceModel deviceModel);
 }

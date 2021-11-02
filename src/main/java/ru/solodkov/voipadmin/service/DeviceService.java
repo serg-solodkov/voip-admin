@@ -7,10 +7,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.solodkov.voipadmin.autoprovisioning.domain.ConfigurationFile;
+import ru.solodkov.voipadmin.autoprovisioning.service.ProvisioningService;
 import ru.solodkov.voipadmin.domain.Device;
 import ru.solodkov.voipadmin.repository.DeviceRepository;
 import ru.solodkov.voipadmin.service.dto.DeviceDTO;
 import ru.solodkov.voipadmin.service.mapper.DeviceMapper;
+
+import static java.util.Objects.nonNull;
 
 /**
  * Service Implementation for managing {@link Device}.
@@ -25,9 +29,14 @@ public class DeviceService {
 
     private final DeviceMapper deviceMapper;
 
-    public DeviceService(DeviceRepository deviceRepository, DeviceMapper deviceMapper) {
+    private final ProvisioningService provisioningService;
+
+    public DeviceService(
+        DeviceRepository deviceRepository, DeviceMapper deviceMapper, ProvisioningService provisioningService
+    ) {
         this.deviceRepository = deviceRepository;
         this.deviceMapper = deviceMapper;
+        this.provisioningService = provisioningService;
     }
 
     /**
@@ -39,6 +48,12 @@ public class DeviceService {
     public DeviceDTO save(DeviceDTO deviceDTO) {
         log.debug("Request to save Device : {}", deviceDTO);
         Device device = deviceMapper.toEntity(deviceDTO);
+        if (device.getModel().getIsConfigurable()) {
+            ConfigurationFile configurationFile = provisioningService.provide(device);
+            if (nonNull(configurationFile)) {
+                device.setConfiguration(configurationFile.getContent());
+            }
+        }
         device = deviceRepository.save(device);
         return deviceMapper.toDto(device);
     }
