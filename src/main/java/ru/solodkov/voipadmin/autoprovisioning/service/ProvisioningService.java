@@ -31,7 +31,7 @@ public class ProvisioningService {
         if (isNull(vendorName)) {
             return null;
         }
-        ConfigurationBuilder configurationBuilder = configurationBuilderHolder.getConfigurationBuilder(vendorName);
+        ConfigurationBuilder configurationBuilder = configurationBuilderHolder.getConfigurationBuilder(vendorName.toLowerCase());
         ConfigurationFile configurationFile = configurationBuilder.buildConfig(device);
         if (!ProvisioningMode.HTTP.equals(device.getProvisioningMode())) {
             configurationWriter.writeConfig(configurationFile);

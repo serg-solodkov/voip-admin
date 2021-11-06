@@ -12,6 +12,7 @@ import ru.solodkov.voipadmin.autoprovisioning.service.ProvisioningService;
 import ru.solodkov.voipadmin.domain.Device;
 import ru.solodkov.voipadmin.repository.DeviceRepository;
 import ru.solodkov.voipadmin.service.dto.DeviceDTO;
+import ru.solodkov.voipadmin.service.dto.DeviceModelDTO;
 import ru.solodkov.voipadmin.service.mapper.DeviceMapper;
 
 import static java.util.Objects.nonNull;
@@ -31,12 +32,15 @@ public class DeviceService {
 
     private final ProvisioningService provisioningService;
 
+    private final DeviceModelService deviceModelService;
+
     public DeviceService(
-        DeviceRepository deviceRepository, DeviceMapper deviceMapper, ProvisioningService provisioningService
-    ) {
+        DeviceRepository deviceRepository, DeviceMapper deviceMapper, ProvisioningService provisioningService,
+        DeviceModelService deviceModelService) {
         this.deviceRepository = deviceRepository;
         this.deviceMapper = deviceMapper;
         this.provisioningService = provisioningService;
+        this.deviceModelService = deviceModelService;
     }
 
     /**
@@ -49,6 +53,10 @@ public class DeviceService {
         log.debug("Request to save Device : {}", deviceDTO);
         Device device = deviceMapper.toEntity(deviceDTO);
         if (device.getModel().getIsConfigurable()) {
+            Optional<DeviceModelDTO> deviceModelDTO = deviceModelService.findOne(device.getModel().getId());
+            if (deviceModelDTO.isPresent() && nonNull(deviceModelDTO.get().getConfigTemplate())) {
+                device.getModel().setConfigTemplate(deviceModelDTO.get().getConfigTemplate());
+            }
             ConfigurationFile configurationFile = provisioningService.provide(device);
             if (nonNull(configurationFile)) {
                 device.setConfiguration(configurationFile.getContent());

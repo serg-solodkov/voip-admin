@@ -66,6 +66,54 @@
               </div>
 
               <div *ngIf="editForm.get('isConfigurable')?.value" class="form-group">
+                <label class="form-control-label" jhiTranslate="voipadminApp.deviceModel.configTemplate" for="field_configTemplate"
+                >Config Template</label
+                >
+                <div>
+                  <div *ngIf="editForm.get('configTemplate')!.value" class="form-text text-danger clearfix">
+                    <a
+                      class="pull-left"
+                      (click)="openFile(editForm.get('configTemplate')!.value, editForm.get('configTemplateContentType')!.value)"
+                      jhiTranslate="entity.action.open"
+                    >open</a
+                    ><br />
+                    <span class="pull-left"
+                    >{{ editForm.get('configTemplateContentType')!.value }}, {{ byteSize(editForm.get('configTemplate')!.value) }}</span
+                    >
+                    <button
+                      type="button"
+                      (click)="editForm.patchValue({ configTemplate: null }); editForm.patchValue({ configTemplateContentType: null })"
+                      class="btn btn-secondary btn-xs pull-right"
+                    >
+                      <fa-icon icon="times"></fa-icon>
+                    </button>
+                  </div>
+                  <input
+                    type="file"
+                    id="file_configTemplate"
+                    data-cy="configTemplate"
+                    (change)="setFileData($event, 'configTemplate', false)"
+                    jhiTranslate="entity.action.addblob"
+                  />
+                </div>
+                <input
+                  type="hidden"
+                  class="form-control"
+                  name="configTemplate"
+                  id="field_configTemplate"
+                  data-cy="configTemplate"
+                  formControlName="configTemplate"
+                />
+                <input
+                  type="hidden"
+                  class="form-control"
+                  name="configTemplateContentType"
+                  id="field_configTemplateContentType"
+                  formControlName="configTemplateContentType"
+                />
+              </div>
+
+              <div *ngIf="editForm.get('isConfigurable')?.value" class="form-group">
                 <label class="form-control-label" jhiTranslate="voipadminApp.deviceModel.firmwareFile" for="field_firmwareFile"
                 >Firmware File</label
                 >

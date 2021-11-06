@@ -2,26 +2,16 @@ package ru.solodkov.voipadmin.autoprovisioning.domain;
 
 public class ConfigurationFile {
 
-    protected String nameTemplate;
-
-    protected String extension;
+    protected String fileName;
 
     private byte[] content;
 
-    public String getNameTemplate() {
-        return nameTemplate;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setNameTemplate(String nameTemplate) {
-        this.nameTemplate = nameTemplate;
-    }
-
-    public String getExtension() {
-        return extension;
-    }
-
-    public void setExtension(String extension) {
-        this.extension = extension;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public byte[] getContent() {
