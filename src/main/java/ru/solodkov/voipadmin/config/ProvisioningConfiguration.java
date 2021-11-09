@@ -20,14 +20,12 @@ public class ProvisioningConfiguration {
     @Bean
     @ConditionalOnProperty({"provisioning.ftp.enable", "provisioning.ftp.host"})
     public ConfigurationWriter ftpRemoteConfigurationWriter() {
-        LOGGER.debug("Remote :)");
         return new RemoteStorageConfigurationWriterImpl();
     }
 
     @Bean
     @ConditionalOnProperty({"provisioning.tftp.enable", "provisioning.tftp.host"})
     public ConfigurationWriter tftpRemoteConfigurationWriter() {
-        LOGGER.debug("Remote :)");
         return new RemoteStorageConfigurationWriterImpl();
     }
 
@@ -35,7 +33,6 @@ public class ProvisioningConfiguration {
     @ConditionalOnExpression("'${provisioning.ftp.enable}'.equals('true') "
         + "and T(org.springframework.util.StringUtils).isEmpty('${provisioning.ftp.host:}')")
     public ConfigurationWriter ftpLocalConfigurationWriter() {
-        LOGGER.debug("Local :)");
         return new LocalStorageConfigurationWriterImpl();
     }
 
@@ -43,14 +40,12 @@ public class ProvisioningConfiguration {
     @ConditionalOnExpression("'${provisioning.tftp.enable}'.equals('true') "
         + "and T(org.springframework.util.StringUtils).isEmpty('${provisioning.tftp.host:}')")
     public ConfigurationWriter tftpLocalConfigurationWriter() {
-        LOGGER.debug("Local :)");
         return new LocalStorageConfigurationWriterImpl();
     }
 
     @Bean
     @ConditionalOnMissingBean
     public ConfigurationWriter noOpConfigurationWriter() {
-        LOGGER.debug("No-OP :(");
         return new NoOpConfigurationWriterImpl();
     }
 }

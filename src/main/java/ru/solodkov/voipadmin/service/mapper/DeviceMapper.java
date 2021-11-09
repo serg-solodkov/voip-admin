@@ -16,6 +16,7 @@ public interface DeviceMapper extends EntityMapper<DeviceDTO, Device> {
     @Mapping(target = "responsiblePerson", source = "responsiblePerson", qualifiedByName = "lastName")
     @Mapping(target = "parent", source = "parent", qualifiedByName = "id")
     @Mapping(target = "voipAccounts", source = "voipAccounts")
+    @Mapping(source = "mac", target = "mac", qualifiedByName = "plainMacToFormatted")
     DeviceDTO toDto(Device s);
 
     @Named("id")
@@ -28,4 +29,21 @@ public interface DeviceMapper extends EntityMapper<DeviceDTO, Device> {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "mac", source = "mac")
     DeviceDTO toDtoMac(Device device);
+
+    @Mapping(source = "mac", target = "mac", qualifiedByName = "formattedMacToPlain")
+    Device toEntity(DeviceDTO deviceDTO);
+
+    @Named("plainMacToFormatted")
+    static String plainMacToFormatted(String plainMac) {
+        if (plainMac.length() != 12) {
+            return plainMac;
+        }
+        String[] octets = plainMac.split("(?<=\\G..)");
+        return String.join(":", octets);
+    }
+
+    @Named("formattedMacToPlain")
+    static String formattedMacToPlain(String formattedMac) {
+        return formattedMac.replace(":", "").replace("-", "");
+    }
 }
