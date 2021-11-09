@@ -2,23 +2,23 @@
   "voipadminApp": {
     "department": {
       "home": {
-        "title": "Departments",
+        "title": "Подразделения",
         "refreshListLabel": "Обновить список",
-        "createLabel": "Создать новый Department",
-        "createOrEditLabel": "Создать или отредактировать Department",
-        "notFound": "Departments не найдено"
+        "createLabel": "Создать новое подразделение",
+        "createOrEditLabel": "Создать или отредактировать подразделение",
+        "notFound": "Подразделения не найдены"
       },
-      "created": "Новый Department создан с идентификатором {{ param }}",
-      "updated": "Department обновлен с идентификатором {{ param }}",
-      "deleted": "Department удален с идентификатором {{ param }}",
+      "created": "Новое подразделение создано с идентификатором {{ param }}",
+      "updated": "Подразделение обновлено с идентификатором {{ param }}",
+      "deleted": "Подразделение удалено с идентификатором {{ param }}",
       "delete": {
-        "question": "Вы уверены что хотите удалить Department {{ id }}?"
+        "question": "Вы уверены что хотите удалить подразделение {{ id }}?"
       },
       "detail": {
-        "title": "Department"
+        "title": "Подразделение"
       },
       "id": "ID",
-      "name": "Name"
+      "name": "Наименование"
     }
   }
 }

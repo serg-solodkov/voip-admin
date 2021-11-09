@@ -2,29 +2,29 @@
   "voipadminApp": {
     "responsiblePerson": {
       "home": {
-        "title": "Responsible People",
+        "title": "Ответственные лица",
         "refreshListLabel": "Обновить список",
-        "createLabel": "Создать новый Responsible Person",
-        "createOrEditLabel": "Создать или отредактировать Responsible Person",
-        "notFound": "Responsible People не найдено"
+        "createLabel": "Создать новое ответственное лицо",
+        "createOrEditLabel": "Создать или отредактировать ответственное лицо",
+        "notFound": "Ответственные лица не найдены"
       },
-      "created": "Новый Responsible Person создан с идентификатором {{ param }}",
-      "updated": "Responsible Person обновлен с идентификатором {{ param }}",
-      "deleted": "Responsible Person удален с идентификатором {{ param }}",
+      "created": "Новое ответственное лицо создан с идентификатором {{ param }}",
+      "updated": "Ответственное лицо обновлен с идентификатором {{ param }}",
+      "deleted": "Ответственное лицо удален с идентификатором {{ param }}",
       "delete": {
-        "question": "Вы уверены что хотите удалить Responsible Person {{ id }}?"
+        "question": "Вы уверены что хотите удалить ответственное лицо {{ id }}?"
       },
       "detail": {
-        "title": "Responsible Person"
+        "title": "Ответственное лицо"
       },
       "id": "ID",
-      "code": "Code",
-      "firstName": "First Name",
-      "secondName": "Second Name",
-      "lastName": "Last Name",
-      "position": "Position",
-      "room": "Room",
-      "department": "Department"
+      "code": "Код МОЛ",
+      "firstName": "Имя",
+      "secondName": "Отчество",
+      "lastName": "Фамилия",
+      "position": "Должность",
+      "room": "Расположение",
+      "department": "Подразделение"
     }
   }
 }

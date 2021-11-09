@@ -2,45 +2,50 @@
   "voipadminApp": {
     "device": {
       "home": {
-        "title": "Devices",
+        "title": "Устройства",
         "refreshListLabel": "Обновить список",
-        "createLabel": "Создать новый Device",
-        "createOrEditLabel": "Создать или отредактировать Device",
-        "notFound": "Devices не найдено"
+        "createLabel": "Создать новое устройство",
+        "createOrEditLabel": "Создать или отредактировать устройство",
+        "notFound": "Устройства не найдены"
       },
-      "created": "Новый Device создан с идентификатором {{ param }}",
-      "updated": "Device обновлен с идентификатором {{ param }}",
-      "deleted": "Device удален с идентификатором {{ param }}",
+      "created": "Новое устройство создано с идентификатором {{ param }}",
+      "updated": "Устройство обновлено с идентификатором {{ param }}",
+      "deleted": "Устройство удалено с идентификатором {{ param }}",
       "delete": {
-        "question": "Вы уверены что хотите удалить Device {{ id }}?"
+        "question": "Вы уверены что хотите удалить устройство {{ id }}?"
       },
       "detail": {
-        "title": "Device"
+        "title": "Устройство"
+      },
+      "tabs": {
+        "general": "Основные настройки",
+        "line": "Настройки линий",
+        "additional": "Дополнительные настройки"
       },
       "id": "ID",
-      "mac": "Mac",
-      "inventoryNumber": "Inventory Number",
-      "location": "Location",
-      "hostname": "Hostname",
-      "webLogin": "Web Login",
-      "webPassword": "Web Password",
-      "dhcpEnabled": "Dhcp Enabled",
-      "ipAddress": "Ip Address",
-      "subnetMask": "Subnet Mask",
-      "defaultGw": "Default Gw",
-      "dns1": "Dns 1",
-      "dns2": "Dns 2",
-      "provisioningMode": "Provisioning Mode",
-      "provisioningUrl": "Provisioning Url",
-      "ntpServer": "Ntp Server",
-      "notes": "Notes",
-      "configuration": "Configuration",
-      "settings": "Settings",
-      "voipAccounts": "Voip Accounts",
-      "children": "Children",
-      "model": "Model",
-      "responsiblePerson": "Responsible Person",
-      "parent": "Parent"
+      "mac": "MAC-адрес",
+      "inventoryNumber": "Инвентарный номер",
+      "location": "Расположение",
+      "hostname": "Имя хоста",
+      "webLogin": "Логин (Web-интерфейс)",
+      "webPassword": "Пароль (Web-интерфейс)",
+      "dhcpEnabled": "DHCP Включен",
+      "ipAddress": "IP-адрес",
+      "subnetMask": "Маска подсети",
+      "defaultGw": "Шлюз по умолчанию",
+      "dns1": "DNS #1",
+      "dns2": "DNS #2",
+      "provisioningMode": "Режим запроса обновления",
+      "provisioningUrl": "URL для обновления",
+      "ntpServer": "NTP-сервер",
+      "notes": "Заметки",
+      "configuration": "Файл конфигурации",
+      "settings": "Настройки",
+      "voipAccounts": "VoIP-аккаунты",
+      "children": "Зависимые устройства",
+      "model": "Модель",
+      "responsiblePerson": "Ответственное лицо",
+      "parent": "Родительское устройство"
     }
   }
 }

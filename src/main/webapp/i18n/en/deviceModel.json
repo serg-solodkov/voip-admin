@@ -21,6 +21,10 @@
       "detail": {
         "title": "Device Model"
       },
+      "tabs": {
+        "general": "General settings",
+        "options": "Options"
+      },
       "id": "ID",
       "name": "Name",
       "isConfigurable": "Is Configurable",

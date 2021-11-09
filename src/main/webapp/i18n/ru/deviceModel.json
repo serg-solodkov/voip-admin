@@ -2,31 +2,35 @@
   "voipadminApp": {
     "deviceModel": {
       "home": {
-        "title": "Device Models",
+        "title": "Модели устройств",
         "refreshListLabel": "Обновить список",
-        "createLabel": "Создать новый Device Model",
-        "createOrEditLabel": "Создать или отредактировать Device Model",
-        "notFound": "Device Models не найдено"
+        "createLabel": "Создать новую модель устройства",
+        "createOrEditLabel": "Создать или отредактировать модель устройства",
+        "notFound": "Модели устройств не найдены"
       },
-      "created": "Новый Device Model создан с идентификатором {{ param }}",
-      "updated": "Device Model обновлен с идентификатором {{ param }}",
-      "deleted": "Device Model удален с идентификатором {{ param }}",
+      "created": "Новая модель устройства создана с идентификатором {{ param }}",
+      "updated": "Модель устройства обновлена с идентификатором {{ param }}",
+      "deleted": "Модель устройства удалена с идентификатором {{ param }}",
       "delete": {
-        "question": "Вы уверены что хотите удалить Device Model {{ id }}?"
+        "question": "Вы уверены что хотите удалить модель устройства {{ id }}?"
       },
       "detail": {
-        "title": "Device Model"
+        "title": "Модель устройства"
+      },
+      "tabs": {
+        "general": "Основные настройки",
+        "options": "Опции"
       },
       "id": "ID",
-      "name": "Name",
-      "isConfigurable": "Is Configurable",
-      "linesCount": "Lines Count",
-      "configTemplate": "Config Template",
-      "firmwareFile": "Firmware File",
-      "deviceType": "Device Type",
-      "otherDeviceType": "Other Device Type",
-      "vendor": "Vendor",
-      "options": "Options"
+      "name": "Наименование",
+      "isConfigurable": "Конфигурируемая",
+      "linesCount": "Количество линий",
+      "configTemplate": "Файл шаблона конфигурации",
+      "firmwareFile": "Файл прошивки",
+      "deviceType": "Тип устройства",
+      "otherDeviceType": "Иной тип устройства",
+      "vendor": "Производитель",
+      "options": "Опции"
     }
   }
 }

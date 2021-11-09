@@ -2,25 +2,25 @@
   "voipadminApp": {
     "optionValue": {
       "home": {
-        "title": "Option Values",
+        "title": "Значения для опций",
         "refreshListLabel": "Обновить список",
-        "createLabel": "Создать новый Option Value",
-        "createOrEditLabel": "Создать или отредактировать Option Value",
-        "notFound": "Option Values не найдено"
+        "createLabel": "Создать новое значение для опции",
+        "createOrEditLabel": "Создать или отредактировать значение для опции",
+        "notFound": "Значения для опций не найдено"
       },
-      "created": "Новый Option Value создан с идентификатором {{ param }}",
-      "updated": "Option Value обновлен с идентификатором {{ param }}",
-      "deleted": "Option Value удален с идентификатором {{ param }}",
+      "created": "Новое значение для опции создан с идентификатором {{ param }}",
+      "updated": "Значение для опции обновлен с идентификатором {{ param }}",
+      "deleted": "Значение для опции удален с идентификатором {{ param }}",
       "delete": {
-        "question": "Вы уверены что хотите удалить Option Value {{ id }}?"
+        "question": "Вы уверены что хотите удалить значение для опции {{ id }}?"
       },
       "detail": {
-        "title": "Option Value"
+        "title": "Значение для опции"
       },
       "id": "ID",
-      "value": "Value",
-      "option": "Option",
-      "settings": "Settings"
+      "value": "Значение",
+      "option": "Опция",
+      "settings": "Настройки"
     }
   }
 }

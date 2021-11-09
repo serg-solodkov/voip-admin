@@ -2,31 +2,33 @@
   "voipadminApp": {
     "voipAccount": {
       "home": {
-        "title": "Voip Accounts",
+        "title": "VoIP-аккаунты",
         "refreshListLabel": "Обновить список",
-        "createLabel": "Создать новый Voip Account",
-        "createOrEditLabel": "Создать или отредактировать Voip Account",
-        "notFound": "Voip Accounts не найдено"
+        "createLabel": "Создать новый VoIP-аккаунт",
+        "createOrEditLabel": "Создать или отредактировать VoIP-аккаунт",
+        "notFound": "VoIP-аккаунты не найдены"
       },
-      "created": "Новый Voip Account создан с идентификатором {{ param }}",
-      "updated": "Voip Account обновлен с идентификатором {{ param }}",
-      "deleted": "Voip Account удален с идентификатором {{ param }}",
+      "created": "Новый VoIP-аккаунт создан с идентификатором {{ param }}",
+      "updated": "VoIP-аккаунт обновлен с идентификатором {{ param }}",
+      "deleted": "VoIP-аккаунт удален с идентификатором {{ param }}",
       "delete": {
-        "question": "Вы уверены что хотите удалить Voip Account {{ id }}?"
+        "question": "Вы уверены что хотите удалить VoIP-аккаунт {{ id }}?"
       },
       "detail": {
-        "title": "Voip Account"
+        "title": "VoIP-аккаунт"
       },
       "id": "ID",
-      "manuallyCreated": "Manually Created",
-      "username": "Username",
-      "password": "Password",
-      "sipServer": "Sip Server",
-      "sipPort": "Sip Port",
-      "lineEnable": "Line Enable",
-      "lineNumber": "Line Number",
-      "asteriskAccount": "Asterisk Account",
-      "device": "Device"
+      "manuallyCreated": "Добавлен вручную",
+      "username": "Имя пользователя",
+      "password": "Пароль",
+      "sipServer": "SIP-Сервер",
+      "sipPort": "SIP-порт",
+      "lineEnable": "Линия активна",
+      "lineNumber": "Номер линии",
+      "lineWithNumber": "Линия # {{ lineNumber }}",
+      "asteriskAccount": "Аккаунт Asterisk",
+      "device": "Устройство",
+      "singleSipServer": "Один SIP-сервер для всех аккаунтов"
     }
   }
 }

@@ -2,26 +2,26 @@
   "voipadminApp": {
     "setting": {
       "home": {
-        "title": "Settings",
+        "title": "Настройки",
         "refreshListLabel": "Обновить список",
-        "createLabel": "Создать новый Setting",
-        "createOrEditLabel": "Создать или отредактировать Setting",
-        "notFound": "Settings не найдено"
+        "createLabel": "Создать новую настройку",
+        "createOrEditLabel": "Создать или отредактировать настройку",
+        "notFound": "Настройки не найдены"
       },
-      "created": "Новый Setting создан с идентификатором {{ param }}",
-      "updated": "Setting обновлен с идентификатором {{ param }}",
-      "deleted": "Setting удален с идентификатором {{ param }}",
+      "created": "Новая настройка создана с идентификатором {{ param }}",
+      "updated": "Настройка обновлена с идентификатором {{ param }}",
+      "deleted": "Настройка удалена с идентификатором {{ param }}",
       "delete": {
-        "question": "Вы уверены что хотите удалить Setting {{ id }}?"
+        "question": "Вы уверены что хотите удалить настройку {{ id }}?"
       },
       "detail": {
-        "title": "Setting"
+        "title": "Настройка"
       },
       "id": "ID",
-      "textValue": "Text Value",
-      "option": "Option",
-      "selectedValues": "Selected Values",
-      "device": "Device"
+      "textValue": "Текстовое значение",
+      "option": "Опция",
+      "selectedValues": "Выбранные значения",
+      "device": "Устройство"
     }
   }
 }

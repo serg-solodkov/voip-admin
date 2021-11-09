@@ -2,24 +2,24 @@
   "voipadminApp": {
     "vendor": {
       "home": {
-        "title": "Vendors",
+        "title": "Производители",
         "refreshListLabel": "Обновить список",
-        "createLabel": "Создать новый Vendor",
-        "createOrEditLabel": "Создать или отредактировать Vendor",
-        "notFound": "Vendors не найдено"
+        "createLabel": "Создать нового производителя",
+        "createOrEditLabel": "Создать или отредактировать производителя",
+        "notFound": "Производители не найдены"
       },
-      "created": "Новый Vendor создан с идентификатором {{ param }}",
-      "updated": "Vendor обновлен с идентификатором {{ param }}",
-      "deleted": "Vendor удален с идентификатором {{ param }}",
+      "created": "Новый производитель создан с идентификатором {{ param }}",
+      "updated": "Производитель обновлен с идентификатором {{ param }}",
+      "deleted": "Производитель удален с идентификатором {{ param }}",
       "delete": {
-        "question": "Вы уверены что хотите удалить Vendor {{ id }}?"
+        "question": "Вы уверены что хотите удалить производителя {{ id }}?"
       },
       "detail": {
-        "title": "Vendor"
+        "title": "Производитель"
       },
       "id": "ID",
-      "name": "Name",
-      "options": "Options"
+      "name": "Наименование",
+      "options": "Опции"
     }
   }
 }

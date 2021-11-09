@@ -2,29 +2,29 @@
   "voipadminApp": {
     "option": {
       "home": {
-        "title": "Options",
+        "title": "Опции",
         "refreshListLabel": "Обновить список",
-        "createLabel": "Создать новый Option",
-        "createOrEditLabel": "Создать или отредактировать Option",
-        "notFound": "Options не найдено"
+        "createLabel": "Создать новую опцию",
+        "createOrEditLabel": "Создать или отредактировать опцию",
+        "notFound": "Опции не найдены"
       },
-      "created": "Новый Option создан с идентификатором {{ param }}",
-      "updated": "Option обновлен с идентификатором {{ param }}",
-      "deleted": "Option удален с идентификатором {{ param }}",
+      "created": "Новая опция создана с идентификатором {{ param }}",
+      "updated": "Опция обновлена с идентификатором {{ param }}",
+      "deleted": "Опция удалена с идентификатором {{ param }}",
       "delete": {
-        "question": "Вы уверены что хотите удалить Option {{ id }}?"
+        "question": "Вы уверены что хотите удалить опцию {{ id }}?"
       },
       "detail": {
-        "title": "Option"
+        "title": "Опция"
       },
       "id": "ID",
-      "code": "Code",
-      "descr": "Descr",
-      "valueType": "Value Type",
-      "multiple": "Multiple",
-      "possibleValues": "Possible Values",
-      "vendors": "Vendors",
-      "models": "Models"
+      "code": "Код",
+      "descr": "Описание",
+      "valueType": "Тип значения",
+      "multiple": "Множественное значение",
+      "possibleValues": "Возможные значения",
+      "vendors": "Производители",
+      "models": "Модели"
     }
   }
 }

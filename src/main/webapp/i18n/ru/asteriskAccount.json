@@ -2,25 +2,25 @@
   "voipadminApp": {
     "asteriskAccount": {
       "home": {
-        "title": "Asterisk Accounts",
+        "title": "Asterisk-аккаунты",
         "refreshListLabel": "Обновить список",
-        "createLabel": "Создать новый Asterisk Account",
-        "createOrEditLabel": "Создать или отредактировать Asterisk Account",
-        "notFound": "Asterisk Accounts не найдено"
+        "createLabel": "Создать новый Asterisk-аккаунт",
+        "createOrEditLabel": "Создать или отредактировать Asterisk-аккаунт",
+        "notFound": "Asterisk-аккаунты не найдены"
       },
-      "created": "Новый Asterisk Account создан с идентификатором {{ param }}",
-      "updated": "Asterisk Account обновлен с идентификатором {{ param }}",
-      "deleted": "Asterisk Account удален с идентификатором {{ param }}",
+      "created": "Новый Asterisk-аккаунт создан с идентификатором {{ param }}",
+      "updated": "Asterisk-аккаунт обновлен с идентификатором {{ param }}",
+      "deleted": "Asterisk-аккаунт удален с идентификатором {{ param }}",
       "delete": {
-        "question": "Вы уверены что хотите удалить Asterisk Account {{ id }}?"
+        "question": "Вы уверены что хотите удалить Asterisk-аккаунт {{ id }}?"
       },
       "detail": {
-        "title": "Asterisk Account"
+        "title": "Asterisk-аккаунт"
       },
       "id": "ID",
-      "username": "Username",
-      "asteriskId": "Asterisk Id",
-      "voipAccount": "Voip Account"
+      "username": "Имя пользователя",
+      "asteriskId": "Asterisk ID",
+      "voipAccount": "VoIP-аккаунт"
     }
   }
 }
