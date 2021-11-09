@@ -27,6 +27,19 @@
               </div>
 
               <div class="form-group">
+                <label class="form-control-label" jhiTranslate="voipadminApp.device.model" for="field_model">Model</label>
+                <select class="form-control" id="field_model" data-cy="model" name="model" formControlName="model"
+                        (change)="onDeviceModelChange()">
+                  <option
+                    [ngValue]="deviceModelOption.id === editForm.get('model')!.value?.id ? editForm.get('model')!.value : deviceModelOption"
+                    *ngFor="let deviceModelOption of deviceModelsSharedCollection; trackBy: trackDeviceModelById"
+                  >
+                    {{ deviceModelOption?.vendor?.name }} {{ deviceModelOption.name }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group">
                 <label class="form-control-label" jhiTranslate="voipadminApp.device.inventoryNumber" for="field_inventoryNumber"
                 >Inventory Number</label
                 >
@@ -43,6 +56,49 @@
               <div class="form-group">
                 <label class="form-control-label" jhiTranslate="voipadminApp.device.location" for="field_location">Location</label>
                 <input type="text" class="form-control" name="location" id="field_location" data-cy="location" formControlName="location" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" jhiTranslate="voipadminApp.device.responsiblePerson" for="field_responsiblePerson"
+                >Responsible Person</label
+                >
+                <select
+                  class="form-control"
+                  id="field_responsiblePerson"
+                  data-cy="responsiblePerson"
+                  name="responsiblePerson"
+                  formControlName="responsiblePerson"
+                >
+                  <option [ngValue]="null"></option>
+                  <option
+                    [ngValue]="
+                responsiblePersonOption.id === editForm.get('responsiblePerson')!.value?.id
+                  ? editForm.get('responsiblePerson')!.value
+                  : responsiblePersonOption
+              "
+                    *ngFor="let responsiblePersonOption of responsiblePeopleSharedCollection; trackBy: trackResponsiblePersonById"
+                  >
+                    {{ responsiblePersonOption.lastName }} {{ responsiblePersonOption.firstName | firstLetter }}
+                    {{ responsiblePersonOption.secondName | firstLetter }}
+                    <span *ngIf="responsiblePersonOption?.position || responsiblePersonOption?.room">
+                      ({{ responsiblePersonOption?.position }} {{ responsiblePersonOption?.room }})
+                    </span>
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" jhiTranslate="voipadminApp.device.parent" for="field_parent">Parent</label>
+                <select class="form-control" id="field_parent" data-cy="parent" name="parent" formControlName="parent">
+                  <option [ngValue]="null"></option>
+                  <option
+                    [ngValue]="deviceOption.id === editForm.get('parent')!.value?.id ? editForm.get('parent')!.value : deviceOption"
+                    *ngFor="let deviceOption of devicesSharedCollection; trackBy: trackDeviceById"
+                  >
+                    {{ deviceOption?.model?.vendor?.name }} {{ deviceOption?.model?.name }}
+                    ({{ deviceOption?.mac }})
+                  </option>
+                </select>
               </div>
 
               <div class="form-group">
@@ -197,60 +253,6 @@
                 <input type="text" class="form-control" name="notes" id="field_notes" data-cy="notes" formControlName="notes" />
               </div>
 
-              <div class="form-group">
-                <label class="form-control-label" jhiTranslate="voipadminApp.device.model" for="field_model">Model</label>
-                <select class="form-control" id="field_model" data-cy="model" name="model" formControlName="model"
-                        (change)="onDeviceModelChange()">
-                  <option
-                    [ngValue]="deviceModelOption.id === editForm.get('model')!.value?.id ? editForm.get('model')!.value : deviceModelOption"
-                    *ngFor="let deviceModelOption of deviceModelsSharedCollection; trackBy: trackDeviceModelById"
-                  >
-                    {{ deviceModelOption?.vendor?.name }} {{ deviceModelOption.name }}
-                  </option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label class="form-control-label" jhiTranslate="voipadminApp.device.responsiblePerson" for="field_responsiblePerson"
-                >Responsible Person</label
-                >
-                <select
-                  class="form-control"
-                  id="field_responsiblePerson"
-                  data-cy="responsiblePerson"
-                  name="responsiblePerson"
-                  formControlName="responsiblePerson"
-                >
-                  <option [ngValue]="null"></option>
-                  <option
-                    [ngValue]="
-                responsiblePersonOption.id === editForm.get('responsiblePerson')!.value?.id
-                  ? editForm.get('responsiblePerson')!.value
-                  : responsiblePersonOption
-              "
-                    *ngFor="let responsiblePersonOption of responsiblePeopleSharedCollection; trackBy: trackResponsiblePersonById"
-                  >
-                    {{ responsiblePersonOption.lastName }} {{ responsiblePersonOption.firstName | firstLetter }}
-                    {{ responsiblePersonOption.secondName | firstLetter }}
-                    <span *ngIf="responsiblePersonOption?.position || responsiblePersonOption?.room">
-                      ({{ responsiblePersonOption?.position }} {{ responsiblePersonOption?.room }})
-                    </span>
-                  </option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label class="form-control-label" jhiTranslate="voipadminApp.device.parent" for="field_parent">Parent</label>
-                <select class="form-control" id="field_parent" data-cy="parent" name="parent" formControlName="parent">
-                  <option [ngValue]="null"></option>
-                  <option
-                    [ngValue]="deviceOption.id === editForm.get('parent')!.value?.id ? editForm.get('parent')!.value : deviceOption"
-                    *ngFor="let deviceOption of devicesSharedCollection; trackBy: trackDeviceById"
-                  >
-                    {{ deviceOption.id }}
-                  </option>
-                </select>
-              </div>
             </div>
           </ng-template>
         </li>
