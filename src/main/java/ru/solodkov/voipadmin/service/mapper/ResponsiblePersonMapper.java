@@ -16,5 +16,7 @@ public interface ResponsiblePersonMapper extends EntityMapper<ResponsiblePersonD
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     @Mapping(target = "lastName", source = "lastName")
+    @Mapping(target = "firstName", source = "firstName")
+    @Mapping(target = "secondName", source = "secondName")
     ResponsiblePersonDTO toDtoLastName(ResponsiblePerson responsiblePerson);
 }
