@@ -103,3 +103,8 @@ jhipster:
 # ===================================================================
 
 # application:
+
+provisioning:
+  tftp:
+    enable: true
+#    location: /tmp-tftp

@@ -4,8 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.solodkov.voipadmin.autoprovisioning.domain.ConfigurationFile;
 import ru.solodkov.voipadmin.autoprovisioning.service.writer.ConfigurationWriter;
 
-@Service
-public class LocalStorageConfigurationWriter implements ConfigurationWriter {
+public class RemoteStorageConfigurationWriterImpl implements ConfigurationWriter {
 
     @Override
     public boolean writeConfig(ConfigurationFile configurationFile) {

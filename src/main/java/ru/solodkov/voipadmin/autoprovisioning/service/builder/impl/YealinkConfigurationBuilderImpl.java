@@ -18,7 +18,7 @@ import static java.util.Objects.nonNull;
 @Service("yealink")
 public class YealinkConfigurationBuilderImpl implements ConfigurationBuilder {
 
-    private final static String CONFIG_FILE_EXTENSION = ".cfg";
+    private final static String CONFIG_FILE_EXTENSION = "cfg";
 
     private static final String SECTION_TITLE_TEMPLATE = "##{0}{1}{2}##";
     private static final int SECTION_TITLE_LINE_LENGTH = 83;
