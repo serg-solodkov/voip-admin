@@ -17,6 +17,7 @@
       "detail": {
         "title": "Option"
       },
+      "add": "Add possible value",
       "id": "ID",
       "code": "Code",
       "descr": "Descr",

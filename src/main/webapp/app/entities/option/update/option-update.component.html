@@ -8,11 +8,6 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div>
-
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="voipadminApp.option.code" for="field_code">Code</label>
           <input type="text" class="form-control" name="code" id="field_code" data-cy="code" formControlName="code" />
@@ -31,6 +26,19 @@
             <option value="SELECT">{{ 'voipadminApp.OptionValueType.SELECT' | translate }}</option>
           </select>
         </div>
+
+        <fieldset class="possible-values-group" *ngIf="editForm.get('valueType')?.value === 'SELECT'" formArrayName="possibleValues">
+          <legend jhiTranslate="voipadminApp.option.possibleValues">Possible Values</legend>
+          <div class="possible-value-input input-group" *ngFor="let possibleValue of possibleValues.controls; let i = index;" [formGroupName]="i">
+            <input type="text" class="form-control" formControlName="value" placeholder="Value">
+            <button class="btn btn-outline-secondary" type="button" (click)="removePossibleValue(i)">Remove</button>
+          </div>
+
+          <button type="button"
+                  class="btn btn-secondary"
+                  (click)="addPossibleValue()"
+                  jhiTranslate="voipadminApp.option.add">Add Possible Value</button>
+        </fieldset>
 
         <div class="form-group">
           <label class="form-control-label" jhiTranslate="voipadminApp.option.multiple" for="field_multiple">Multiple</label>
