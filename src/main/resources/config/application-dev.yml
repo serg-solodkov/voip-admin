@@ -108,3 +108,11 @@ provisioning:
   tftp:
     enable: true
 #    location: /tmp-tftp
+integration:
+  asterisk:
+    enable: true
+    host: 127.0.0.1
+    login: admin
+    password: admin
+    monitoring:
+      enable: true

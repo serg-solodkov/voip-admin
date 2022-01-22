@@ -310,6 +310,11 @@
             <groupId>io.dropwizard.metrics</groupId>
             <artifactId>metrics-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.github.ari4java</groupId>
+            <artifactId>ari4java</artifactId>
+            <version>0.14.0</version>
+        </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>
 
