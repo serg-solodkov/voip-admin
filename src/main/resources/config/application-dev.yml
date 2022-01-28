@@ -111,8 +111,8 @@ provisioning:
 integration:
   asterisk:
     enable: true
-    host: 127.0.0.1
-    login: admin
-    password: admin
+    host: http://127.0.0.1:8088
+    login: voip-admin
+    password: blahblah
     monitoring:
       enable: true
